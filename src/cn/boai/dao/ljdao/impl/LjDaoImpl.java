@@ -57,6 +57,9 @@ public class LjDaoImpl implements LjDao {
 
 	@Override
 	public List<Product> SplitArticleListByKey(String keys, Connection conn) throws Exception {
+		
+		
+		
 		return null;
 	}
 
