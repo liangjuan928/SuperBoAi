@@ -96,7 +96,7 @@ public class LjServiceImpl implements LjService{
 		DBHelper.closeConnection(conn);
 	}
 		return article;
-	}
+	}   
 	
 	}
       

@@ -14,6 +14,6 @@ public interface LjDao {
      public List<Product> SplitProductListByType(int type,Connection conn) throws Exception;
      public List<Product> SplitProductListBySale(Connection conn) throws Exception;
      public List<Product> SplitProductListByPrice(double price,Connection conn) throws Exception;
-     
+       
 
 }
