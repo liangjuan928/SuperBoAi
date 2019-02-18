@@ -6,6 +6,7 @@ import com.mysql.jdbc.Connection;
 
 import cn.boai.pojo.Address;
 import cn.boai.pojo.Article;
+import cn.boai.pojo.Product;
 import cn.boai.web.form.ljform.AddArticleForm;
 
 public interface LjService {
@@ -15,4 +16,10 @@ public interface LjService {
 	 public int getArticleMaxPageNum(int pagesize);  //获得最大页码数
 	 public List<Article> SplitArticleList(int curpage,int pagesize);  //获得最大页码数
 	 public Article getArticleById(int id);
+	 
+	 
+	 public List<Product> SplitProductListByKey(String keys);
+     public List<Product> SplitProductListByType(int type);
+     public List<Product> SplitProductListBySale();
+     public List<Product> SplitProductListByPrice(double price);
 }

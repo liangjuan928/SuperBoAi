@@ -1,6 +1,7 @@
 package cn.boai.service.ljservice.impl;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import cn.boai.dao.ljdao.LjDao;
 import cn.boai.dao.ljdao.impl.LjDaoImpl;
 import cn.boai.db.DBHelper;
 import cn.boai.pojo.Article;
+import cn.boai.pojo.Product;
 import cn.boai.service.ljservice.LjService;
 import cn.boai.web.form.ljform.AddArticleForm;
 
@@ -96,6 +98,32 @@ public class LjServiceImpl implements LjService{
 		DBHelper.closeConnection(conn);
 	}
 		return article;
+	}
+
+	@Override
+	public List<Product> SplitProductListByKey(String keys) {
+		List<Product> list=new ArrayList<>();
+		
+		
+		return null;
+	}
+
+	@Override
+	public List<Product> SplitProductListByType(int type) {
+		
+		return null;
+	}
+
+	@Override
+	public List<Product> SplitProductListBySale() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Product> SplitProductListByPrice(double price) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	}
