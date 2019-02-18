@@ -10,6 +10,7 @@ import cn.boai.dao.ljdao.LjDao;
 import cn.boai.pojo.Article;
 import cn.boai.pojo.Product;
 
+//dao  
 public class LjDaoImpl implements LjDao {
 	/**
 	 * 获取文章最大页码
