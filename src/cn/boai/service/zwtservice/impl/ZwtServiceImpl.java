@@ -33,7 +33,7 @@ public class ZwtServiceImpl implements ZwtService{
 	UserDao ud=new UserDaoImpl();
 	ProductDao pd=new ProductDaoImpl();
 	ZwtDao zd=new ZwtDaoImpl();
-
+   
 	@Override
 	public boolean addComm(AddCommForm form) {
 		Connection conn=DBHelper.getConnection();

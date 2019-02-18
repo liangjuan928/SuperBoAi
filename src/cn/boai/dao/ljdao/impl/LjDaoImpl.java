@@ -15,7 +15,7 @@ public class LjDaoImpl implements LjDao {
 	/**
 	 * 获取文章最大页码
 	 */
-	@Override
+	@Override   
 	public int getArticleMaxPageNum(int pagesize, Connection conn) throws Exception {
 		String sql = "select count(*) num from article";
 		PreparedStatement ps = null;

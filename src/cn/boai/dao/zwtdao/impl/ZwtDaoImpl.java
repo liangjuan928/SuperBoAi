@@ -18,7 +18,7 @@ public class ZwtDaoImpl implements ZwtDao{
 		PreparedStatement ps = null;
 		System.out.println(pro_id+"----------aa");
 		ps = conn.prepareStatement(sql);
-		ps.setString(1, pro_id);
+		ps.setString(1, pro_id);   
 	    ResultSet rs=ps.executeQuery();
 	    int result=-1;
 	    if(rs.next()){

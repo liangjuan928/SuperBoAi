@@ -20,7 +20,7 @@ import cn.boai.web.form.ljform.AddArticleForm;
 public class LjServiceImpl implements LjService{
       ArticleDao ad=new ArticleDaoImpl();
       LjDao ld=new LjDaoImpl();
-	@Override
+	@Override  
 	public boolean addArticle(AddArticleForm form) {
 		Connection conn=DBHelper.getConnection();
 		Article article=new Article();

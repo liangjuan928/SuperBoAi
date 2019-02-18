@@ -9,7 +9,7 @@ import cn.boai.pojo.Product;
 public interface LjDao {
 	 public int getArticleMaxPageNum(int pagesize,Connection conn)throws Exception;  //获得最大页码数
 	 public List<Article> SplitArticleList(int curpage,int pagesize,Connection conn)throws Exception;  //获得最大页码数
-    
+       
 	 public List<Product> SplitProductListByKey(String keys,Connection conn) throws Exception;
      public List<Product> SplitProductListByType(int type,Connection conn) throws Exception;
      public List<Product> SplitProductListBySale(Connection conn) throws Exception;
