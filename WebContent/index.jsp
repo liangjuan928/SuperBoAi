@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>博爱母婴商城首页zwtzwt</title>
+  <title>博爱母婴商城首页 zwtzwt</title>
   <link rel="stylesheet" type="text/css" href="res/static/css/main.css">
   <link rel="stylesheet" type="text/css" href="res/layui/css/layui.css">
   <script type="text/javascript" src="res/layui/layui.js"></script>

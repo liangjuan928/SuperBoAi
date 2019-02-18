@@ -31,4 +31,7 @@ public class AddArticleForm extends ActionForm {
 	public void setConent(String conent) {
 		this.conent = conent;
 	}
+	
+	
+	
 }

@@ -20,6 +20,12 @@
     
 </filter>
 
+ <filter>
+  <filter-name>CommentIndexFilter</filter-name>
+  <filter-class>cn.boai.web.util.CommentIndexFilter</filter-class>
+    
+</filter>
+
 
 <filter-mapping>
   <filter-name>FilterCharset</filter-name>
@@ -31,6 +37,10 @@
   <url-pattern>/information.jsp</url-pattern>
 </filter-mapping> 
   
+ <filter-mapping>
+  <filter-name>CommentIndexFilter</filter-name>
+  <url-pattern>/comment.jsp</url-pattern>
+</filter-mapping> 
   
   
    <servlet>

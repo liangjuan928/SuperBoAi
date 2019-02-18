@@ -20,79 +20,54 @@
 <script src="js/css3-mediaqueries.js"  type="text/javascript"></script>
   <![endif]-->
 <title>添加产品</title>
+<script>
+	function change(obj){
+		var fr = new FileReader();
+		var f = obj.files[0];
+		fr.readAsDataURL(f);
+		fr.onload=function(e){
+			document.getElementById("pro_photo").value=e.target.result;
+			var val=obj.value;
+			val=val.substring(val.lastIndexOf(".")+1);
+			document.getElementById("photo_type").value=val;
+		};
+	}
+</script>
 </head>
 
 <body>
 <div class="margin">
 <div class="add_style">
+<form action="add_product.do" method="post">
  <ul>
-  <li class="clearfix"><label class="label_name col-xs-1"><i>*</i>标题名称：&nbsp;&nbsp;</label><div class="Add_content col-xs-11"><input name="" type="text"  class="col-xs-6"/></div></li>
-  <li class="clearfix"><label class="label_name col-xs-1"><i>*</i>简单描述：&nbsp;&nbsp;</label><div class="Add_content col-xs-11"><input name="" type="text" class="col-xs-4"/></div></li>
-   <li class="clearfix"><label class="label_name col-xs-1"><i>*</i>关&nbsp;键&nbsp;字：&nbsp;&nbsp;</label><div class="Add_content col-xs-11"><input name="" type="text" class="col-xs-4"/><em class="Prompt"> 请用","分隔关键字</em></div></li>
+  <li class="clearfix"><label class="label_name col-xs-1"><i>*</i>标题名称：&nbsp;&nbsp;</label><div class="Add_content col-xs-11"><input name="pro_title" type="text"  class="col-xs-6"/></div></li>
+  <li class="clearfix"><label class="label_name col-xs-1"><i>*</i>简单描述：&nbsp;&nbsp;</label><div class="Add_content col-xs-11"><input name="pro_describe" type="text" class="col-xs-4"/></div></li>
+   <li class="clearfix"><label class="label_name col-xs-1"><i>*</i>关&ensp;键&ensp;字：&nbsp;&nbsp;</label><div class="Add_content col-xs-11"><input name="pro_key" type="text" class="col-xs-4"/><em class="Prompt"> 请用","分隔关键字</em></div></li>
   <li class="clearfix">
    <label class="label_name col-xs-1"><i>*</i>产品分类：&nbsp;&nbsp;</label>
    <div class="Add_content col-xs-11">
-   <span class="classification_name l_f"><label ><input type="radio" name="form-field-radio" class="ace"><span class="lbl">新品发布</span></label></span>
-   <span class="classification_name l_f"><label ><input type="radio" name="form-field-radio" class="ace"><span class="lbl">限时促销</span></label></span>
-   <span class="classification_name l_f"><label ><input type="radio" name="form-field-radio" class="ace"><span class="lbl">特价处理</span></label></span>
-   <span class="relative l_f">
-   <button  type="button" onclick="add_category()" class="btn bg-deep-blue operation_btn margin-left">添加分类</button>
-   <div class="add_category_style">
-     <p class="clearfix">
-     <input name="" type="text"  class="l_f form-control" style="width:260px;"/><button style="margin:0px" class="btn button_btn bg-deep-blue l_f" id="add_category" type="button">添加</button>
-     </p>
-     <p class="Prompt"><em>该分类最多添加10个</em></p>
-   </div>
-   </span>
+   <span class="classification_name l_f"><label ><input type="radio" name="pro_type" class="ace" value="1"><span class="lbl">新品发布</span></label></span>
+   <span class="classification_name l_f"><label ><input type="radio" name="pro_type" class="ace" value="2"><span class="lbl">限时促销</span></label></span>
+   <span class="classification_name l_f"><label ><input type="radio" name="pro_type" class="ace" value="3"><span class="lbl">特价处理</span></label></span>
    </div> 
    </li>
      <li class="clearfix">
       <div class="col-xs-4">
      <label class="label_name col-xs-3"><i>*</i>商品原价：&nbsp;&nbsp;</label> 
     <div class="Add_content col-xs-9">
-    <input name="" type="text"  class="col-xs-7"/><em class="Prompt">元</em>
+    <input name="pro_oldprice" type="text"  class="col-xs-7"/><em class="Prompt">元</em>
     </div>   
     </div>
     <div class="col-xs-4">
     <label class="label_name col-xs-3"><i>*</i>商品现价：&nbsp;&nbsp;</label> 
     <div class="Add_content col-xs-9">
-   <input name="" type="text"  class="col-xs-7"/><em class="Prompt">元</em>
+   <input name="pro_newprice" type="text"  class="col-xs-7"/><em class="Prompt">元</em>
     </div>   
     </div>
     <div class="col-xs-4">
-    <label class="label_name col-xs-3"><i>*</i>商品数量：&nbsp;&nbsp;</label> 
+    <label class="label_name col-xs-3"><i>*</i>商品颜色：&nbsp;&nbsp;</label> 
     <div class="Add_content col-xs-9">
-   <input name="" type="text"  class="col-xs-7"/><em class="Prompt">件</em>
-    </div>   
-    </div>
-    </li>
-   <li class="clearfix"><label class="label_name col-xs-1">设置时间：&nbsp;&nbsp;</label> 
-    <div class="Add_content col-xs-11">
-    <label class="l_f checkbox_time"><input type="checkbox" name="checkbox" class="ace" id="checkbox"><span class="lbl">是</span></label>
-    <div class="Date_selection" style="display:none">
-      <span class="label_name">开始日：</span><p class="laydate-icon" id="start" style="width:200px; margin-right:10px; height:30px; line-height:30px; float:left"></p>
-      <span class="label_name">结束日：</span><p class="laydate-icon" id="end" style="width:200px;height:30px; line-height:30px; float:left"></p>
-    </div>
-    </div>   
-    </li>
-    <li class="clearfix"><label class="label_name col-xs-1">设置规格：&nbsp;&nbsp;</label> 
-    <div class="Add_content col-xs-11">    
-       <input name="" type="text"  class="col-xs-6"/><em class="Prompt">如"颜色,尺寸,型号"中间以英文逗号隔开</em>
-    </div>   
-    </li>
-     <li class="clearfix">
-      <div class="col-xs-4">
-     <label class="label_name col-xs-3">是否上架：&nbsp;&nbsp;</label> 
-    <div class="Add_content col-xs-9">
-    <label><input type="radio" name="checkbox" class="ace" checked="checked"><span class="lbl">是</span></label>
-    <label><input type="radio" name="checkbox" class="ace"><span class="lbl">否</span></label>
-    </div>   
-    </div>
-    <div class="col-xs-4">
-    <label class="label_name col-xs-3">允许评论：&nbsp;&nbsp;</label> 
-    <div class="Add_content col-xs-9">
-       
-    <label class="l_f checkbox_time"><input type="checkbox" name="checkbox" class="ace" checked="checked"><span class="lbl"></span></label>
+   <input name="pro_def" type="text"  class="col-xs-7"/><em class="Prompt">以英文逗号隔开</em>
     </div>   
     </div>
     </li>
@@ -100,22 +75,25 @@
      <label class="label_name col-xs-1"><i>*</i>产品图片：&nbsp;&nbsp;</label>
      <div class="Add_content col-xs-11" id="Upload">
      <div class="images_Upload clearfix margin-bottom" id="images_Upload">
-      <span class="Upload_img"><input name="" type="file" /></span>
+      <span class="Upload_img"><input type="file" onchange="change(this)" /></span>
+      <input type="hidden"  name="pro_photo" id="pro_photo"></input>
+      <input type="hidden"  name="photo_type" id="photo_type"></input>
       <a href="javascript:ovid()" class="operating delete_Upload" onclick="delete_Upload(this.id)"><i class="fa fa-remove"></i></a>
-      <a href="javascript:ovid()" class="operating" title="预览" onclick="preview_img(this.id)"><i class="fa  fa-image"></i></a>
     </div>
     <button type="button" class="add_Upload bg-deep-blue" id="add_Upload" onclick="add_Upload()"><i class="fa  fa-plus"></i></button>
      </div>
      </li>
      <li class="clearfix"><label class="label_name col-xs-1"><i>*</i>内容介绍：&nbsp;&nbsp;</label>
-     <div class="Add_content col-xs-11"><script id="editor" type="text/plain" style="width:100%;height:500px;"></script></div>
-     </li>  
+     <div class="Add_content col-xs-11"><script name="pro_intro" id="editor" type="text/plain" style="width:100%;height:500px;"></script></div>
+     </li>
  </ul>
  <div class="Button_operation btn_width">
-    <button class="btn button_btn bg-deep-blue" type="button">保存并提交</button>
+ 	<input type="hidden" name="param" value="addProduct"></input>
+    <button class="btn button_btn bg-deep-blue" type="submit">保存并提交</button>
     <button class="btn button_btn bg-orange" type="button">保存草稿</button>
-    <button class="btn button_btn bg-gray" type="button">取消添加</button>
+    <button class="btn button_btn bg-gray" type="reset">取消添加</button>
  </div>
+ </form>
 </div>
 </div>
 </body>
@@ -163,36 +141,7 @@ $('#checkbox').on('click',function(){
 		 $('.Date_selection').css('display','none');
 		}	
 	});
-function add_category(){
-	 $(".add_category_style").toggle();
-	
-	}
-  /******时间设置*******/
-  var start = {
-    elem: '#start',
-    format: 'YYYY/MM/DD hh:mm:ss',
-    min: laydate.now(), //设定最小日期为当前日期
-    max: '2099-06-16 23:59:59', //最大日期
-    istime: true,
-    istoday: false,
-    choose: function(datas){
-         end.min = datas; //开始日选好后，重置结束日的最小日期
-         end.start = datas //将结束日的初始值设定为开始日
-    }
-};
-var end = {
-    elem: '#end',
-    format: 'YYYY/MM/DD hh:mm:ss',
-    min: laydate.now(),
-    max: '2099-06-16 23:59:59',
-    istime: true,
-    istoday: false,
-    choose: function(datas){
-        start.max = datas; //结束日选好后，重置开始日的最大日期
-    }
-};
-laydate(start);
-laydate(end);
+
 /*********滚动事件*********/
 $("body").niceScroll({  
 	cursorcolor:"#888888",  

@@ -13,7 +13,7 @@ import cn.boai.web.form.ActionForm;
 public class DispatcherAction implements Action{
 
 	@Override
-	public ActionResult execute(HttpServletRequest request, HttpServletResponse reponse, ActionForm form)
+	public ActionResult execute(HttpServletRequest request, HttpServletResponse response, ActionForm form)
 			throws ServletException, IOException {
 		System.out.println("DispatcherAction");
 		String methodName = form.getParam();
@@ -27,7 +27,7 @@ public class DispatcherAction implements Action{
 					HttpServletRequest.class, HttpServletResponse.class,
 					ActionForm.class });
 			af = (ActionResult) m.invoke(this, new Object[] { request,
-					reponse, form });
+					response, form });
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -37,7 +37,7 @@ public class DispatcherAction implements Action{
 	public ActionResult undefined(HttpServletRequest request,
 			HttpServletResponse reponse, ActionForm form)
 			throws ServletException, IOException {
-		ResultContent rc=new ResultContent("error");
+		ResultContent rc=new ResultContent("error_jsp");
 		
 		return new ActionResult(rc,ResultType.Redirect);  //跳转到错误页面
 	}

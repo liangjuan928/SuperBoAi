@@ -112,6 +112,7 @@
 	  	 <%
 	  	 	ZwtService zs=new ZwtServiceImpl();
 	  	 	List<Comment> list =  zs.queryCommByProid(pro_id);
+	  	 	list=(List<Comment>)request.getAttribute("commlist");
 	  	 %>
 
 	    
@@ -184,6 +185,26 @@
 	    </table>
 
   	</div>
+  	<div id="fenye">
+        <nav aria-label="Page navigation">
+		  <ul class="pagination">
+		  <li><a href="comment.jsp?page=1">首页</a></li>
+		    <li>
+		      <a href="comment.jsp?page=${page-1}" aria-label="Previous">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+		    <li><a href="#">${page}</a></li>
+		    <li>
+		      <a href="comment.jsp?page=${page+1}" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+		    <li><a href="comment.jsp?page=-1">末页</a></li>
+		     <li><a href="#">总共10页</a></li>
+		  </ul>
+		</nav>
+        </div>
   	<br/>
   	<br/>
   	<br/>

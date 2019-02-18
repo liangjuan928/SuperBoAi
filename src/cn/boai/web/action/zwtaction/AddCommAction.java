@@ -29,7 +29,7 @@ public class AddCommAction extends DispatcherAction {
 		}else{
 			System.out.println("添加评论失败");
 		}
-		ar = new ActionResult(rc, ResultType.Redirect); // 转发到add_articl在属性文件中对应的jsp页面
+		ar = new ActionResult(rc, ResultType.Redirect);
 		return ar;
 	}
 }

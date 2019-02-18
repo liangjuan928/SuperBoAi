@@ -77,7 +77,7 @@
      <dd class="submenu">
        <ul>
          <li class="home"><a href="javascript:void(0)" name="Products.jsp" title="产品类表" class="iframeurl"><i class="fa fa-angle-double-right"></i>产品管理</a></li>
-        
+        <li class="home"><a href="javascript:void(0)" name="add_product.jsp" title="添加产品" class="iframeurl"><i class="fa fa-angle-double-right"></i>添加产品</a></li>
          </ul>
          </dd>
   <dt class="nav_link"><a href="#" class="dropdown-toggle title_nav"><i class="fa fa-database"></i><span class="menu-text"> 订单管理 </span><b class="arrow fa fa-angle-down"></b></a></dt>

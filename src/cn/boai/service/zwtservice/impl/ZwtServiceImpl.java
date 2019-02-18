@@ -12,19 +12,27 @@ import java.util.List;
 import cn.boai.dao.daopack.AddressDao.AddressDao;
 import cn.boai.dao.daopack.CommentDao.CommentDao;
 import cn.boai.dao.daopack.CommentDao.impl.CommentDaoImpl;
+import cn.boai.dao.daopack.ProductDao.ProductDao;
+import cn.boai.dao.daopack.ProductDao.impl.ProductDaoImpl;
 import cn.boai.dao.daopack.UserDao.UserDao;
 import cn.boai.dao.daopack.UserDao.impl.UserDaoImpl;
+import cn.boai.dao.zwtdao.ZwtDao;
+import cn.boai.dao.zwtdao.impl.ZwtDaoImpl;
 import cn.boai.db.DBHelper;
 import cn.boai.pojo.Address;
 import cn.boai.pojo.Article;
 import cn.boai.pojo.Comment;
+import cn.boai.pojo.Product;
 import cn.boai.pojo.User;
 import cn.boai.service.zwtservice.ZwtService;
 import cn.boai.web.form.zwtform.AddCommForm;
+import cn.boai.web.form.zwtform.AddProductForm;
 
 public class ZwtServiceImpl implements ZwtService{
 	CommentDao cd=new CommentDaoImpl();
 	UserDao ud=new UserDaoImpl();
+	ProductDao pd=new ProductDaoImpl();
+	ZwtDao zd=new ZwtDaoImpl();
 
 	@Override
 	public boolean addComm(AddCommForm form) {
@@ -76,6 +84,78 @@ public class ZwtServiceImpl implements ZwtService{
 			e.printStackTrace();
 		}
 		return user;
+	}
+
+	@Override
+	public Product queryProductById(String pro_id) {
+		Connection conn=DBHelper.getConnection();
+		Product product=null;
+		try {
+			product=pd.selectProductById(pro_id, conn);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return product;
+	}
+
+	@Override
+	public boolean addProduct(AddProductForm form) {
+		Connection conn=DBHelper.getConnection();
+		Product pro=new Product();
+		pro.setPro_title(form.getPro_title());
+		pro.setPro_describe(form.getPro_describe());
+		pro.setPro_key(form.getPro_key());
+		pro.setPro_oldprice(form.getPro_oldprice());
+		pro.setPro_newprice(form.getPro_newprice());
+		pro.setPro_photo(form.getPro_photo());
+		pro.setType_id(Integer.valueOf(form.getPro_type()));
+		pro.setPro_intro(form.getPro_intro());
+		pro.setPro_def(form.getPro_def());
+		System.out.println(form.getPro_photo()+"==="+form.getPro_intro());
+		
+		boolean flag=false;
+		try {
+			conn.setAutoCommit(false);
+			flag = pd.saveProduct(pro, conn);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}finally{
+			DBHelper.closeConnection(conn);
+		}
+		return flag;
+	}
+
+	@Override
+	public int getCommMaxPageNum(String pro_id,int pagesize) {
+		Connection conn=DBHelper.getConnection();
+		int result=0;
+		try {
+			 result=zd.getCommMaxPageNum(pro_id,pagesize, conn);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			DBHelper.closeConnection(conn);
+		}
+			return result;
+	}
+
+	@Override
+	public List<Comment> SplitCommList(String pro_id,int curpage, int pagesize) {
+		Connection conn=DBHelper.getConnection();
+		List<Comment> list=null;
+		try {
+			 list=zd.SplitCommList(pro_id,curpage, pagesize, conn);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			DBHelper.closeConnection(conn);
+		}
+		return list;
 	}
 
 	

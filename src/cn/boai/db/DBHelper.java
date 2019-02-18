@@ -19,7 +19,7 @@ public class DBHelper {
 	public static Connection getConnection(){
 		Connection conn = null;
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/boai?characterEncoding=utf8&useUnicode=true", "root", "root");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/zwt?characterEncoding=utf8&useUnicode=true", "root", "root");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
