@@ -16,9 +16,10 @@ public class HyDaoImpl implements HyDao{
 		String sql = "update product set pro_sales=? where pro_id=?";
 		PreparedStatement ps = null;
 		ps = conn.prepareStatement(sql);
-		ps.setString(1, pid);
 		Product p=pd.selectProductById(pid, conn);
-		ps.setString(2, p.getPro_sales()+1);
+		int i=Integer.parseInt(p.getPro_sales())+1;
+		ps.setString(1, String.valueOf(i));
+		ps.setString(2, pid);
 		int n = ps.executeUpdate();
 		if (n > 0) {
 			flag = true;
