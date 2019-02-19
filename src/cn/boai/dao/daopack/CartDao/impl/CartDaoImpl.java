@@ -47,13 +47,11 @@ public class CartDaoImpl implements CartDao{
 	@Override
 	public boolean updateCart(Cart c, Connection conn) throws Exception {
 		boolean flag = false;
-		String sql = "update cart set cart_def=?,pro_num=?  where user_id=? and pro_id=? ";
+		String sql = "update cart set pro_id=? where user_id=?";
 		PreparedStatement ps = null;
 		ps = conn.prepareStatement(sql);
-		ps.setString(1, c.getCart_def());
-		ps.setInt(2, c.getPro_num());
-		ps.setString(3, c.getUser_id());
-		ps.setString(4,c.getPro_id());
+		ps.setString(1, c.getPro_id());
+		ps.setString(2, c.getUser_id());
 		int n = ps.executeUpdate();
 		if (n > 0) {
 			flag = true;
@@ -76,8 +74,6 @@ public class CartDaoImpl implements CartDao{
 			c=new Cart();
 			c.setPro_id(rs.getString("pro_id"));
 			c.setUser_id(rs.getString("user_id"));
-			c.setCart_def(rs.getString("cart_def"));
-			c.setPro_num(rs.getInt("pro_num"));
 		}
 		rs.close();
 		ps.close();
@@ -95,14 +91,13 @@ public class CartDaoImpl implements CartDao{
 		rs = ps.executeQuery();
 		while (rs.next()) {
 			Cart c = new Cart();
-			c.setPro_id(rs.getString("pro_id"));
 			c.setUser_id(rs.getString("user_id"));
-			c.setCart_def(rs.getString("cart_def"));
-			c.setPro_num(rs.getInt("pro_num"));
+			c.setPro_id(rs.getString("pro_id"));
 			list.add(c);
 		}
 		rs.close();
 		ps.close();
 		return list;
 	}
+
 }

@@ -67,7 +67,6 @@
 			if(document.getElementById("comm_content").value=="")
 				document.getElementById("bbb").innerHTML = "评论内容不能为空！";
 		}
-		
 		function re1(){
 			document.getElementById("aaa").innerHTML = "";
 		}

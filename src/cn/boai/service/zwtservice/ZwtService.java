@@ -18,4 +18,5 @@ public interface ZwtService {
 	public int getCommMaxPageNum(String pro_id,int pagesize);  //获得最大页码数
 	public List<Comment> SplitCommList(String pro_id,int curpage,int pagesize);  //获得最大页码数
 	public boolean addCart(AddCartForm form);
+	
 }

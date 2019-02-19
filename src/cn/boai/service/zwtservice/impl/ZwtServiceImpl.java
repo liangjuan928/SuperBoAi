@@ -33,6 +33,7 @@ import cn.boai.web.form.zwtform.AddCommForm;
 import cn.boai.web.form.zwtform.AddProductForm;
 
 public class ZwtServiceImpl implements ZwtService{
+	
 	CommentDao cd=new CommentDaoImpl();
 	UserDao ud=new UserDaoImpl();
 	ProductDao pd=new ProductDaoImpl();

@@ -12,6 +12,7 @@ import cn.boai.pojo.Comment;
 
 public class ZwtDaoImpl implements ZwtDao{
 
+	
 	@Override
 	public int getCommMaxPageNum(String pro_id,int pagesize, Connection conn) throws Exception {
 		String sql="select count(*) num from comment where pro_id=?";

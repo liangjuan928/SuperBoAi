@@ -17,11 +17,15 @@ import cn.boai.web.core.DispatcherAction;
 import cn.boai.web.core.ResultContent;
 import cn.boai.web.core.ResultType;
 import cn.boai.web.form.ActionForm;
+import cn.boai.web.form.ytform.CheckUserNameForm;
 
-public class CheckUserNameAction extends DispatcherAction{
+public class CheckUserNameAction implements Action{
 	YtDao yd=new YtDaoImpl();
+	
+	@Override
 	public ActionResult execute(HttpServletRequest request, HttpServletResponse reponse, ActionForm form)
-			throws ServletException, IOException{
+			throws ServletException, IOException {
+		System.out.println("checkusername");
 		boolean result=false;
 		ActionResult ar=null;
 		String s = request.getParameter("uname");

@@ -8,8 +8,9 @@ import java.util.List;
 import com.mysql.jdbc.Connection;
 
 import cn.boai.dao.daopack.AddressDao.AddressDao;
+import cn.boai.dao.ytdao.YtDao;
 import cn.boai.pojo.Address;
 
-public class YtDaoImpl {
+public class YtDaoImpl implements YtDao{
 
 }

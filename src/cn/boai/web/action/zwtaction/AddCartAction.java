@@ -26,9 +26,9 @@ public class AddCartAction extends DispatcherAction {
 		ActionResult ar = null;
 		ResultContent rc = new ResultContent("add_cart_jsp", result);
 		if(result){
-			System.out.println("加入购物车成功");
+			System.out.println("加入购物车成功！");
 		}else{
-			System.out.println("加入购物车失败");
+			System.out.println("加入购物车失败！");
 		}
 		ar = new ActionResult(rc, ResultType.Redirect);
 		return ar;

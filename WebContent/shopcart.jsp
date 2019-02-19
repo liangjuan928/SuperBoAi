@@ -1,33 +1,4 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="cn.boai.pojo.Product"%>
-<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
-<%@page import="cn.boai.service.hyservice.impl.HyServiceImpl"%>
-<%@page import="cn.boai.pojo.Cart"%>
-<%@page import="java.util.List"%>
-<%@page import="cn.boai.dao.daopack.CartDao.impl.CartDaoImpl"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<%
-	String id="1";
-	session.setAttribute("uid", id);
-	
-	String proid="1";
-	session.setAttribute("proid", proid);
-	
-	HyServiceImpl hs=new HyServiceImpl();
-	List<Cart> list=hs.queryAllCart();
-	
-	List<Product> list2=new ArrayList();
-	for(int i=0;i<list.size();i++){
-		String str=list.get(i).getPro_id();
-		Product p=hs.queryProById(str);
-		list2.add(p);
-	}
-	
-	pageContext.setAttribute("list", list);
-	pageContext.setAttribute("list2", list2);
- %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -133,7 +104,6 @@
       </div>
       <div class="OrderList">
         <div class="order-content" id="list-cont">
-        <c:forEach items="${list}" var="u" varStatus="sta">
           <ul class="item-content layui-clear">
             <li class="th th-chk">
               <div class="select-all">
@@ -146,13 +116,13 @@
               <div class="item-cont">
                 <a href="javascript:;"><img src="res/static/img/paging_img1.jpg" alt=""></a>
                 <div class="text">
-                  <div class="title">${list2[sta.count-1].pro_title }</div>
-                  <p><span>${u.cart_def }</span>  <span>130</span>cm</p>
+                  <div class="title">宝宝T恤棉质小衫</div>
+                  <p><span>粉色</span>  <span>130</span>cm</p>
                 </div>
               </div>
             </li>
             <li class="th th-price">
-              <span class="th-su">${list2[sta.count-1].pro_newprice }</span>
+              <span class="th-su">189.00</span>
             </li>
             <li class="th th-amount">
               <div class="box-btn layui-clear">
@@ -168,7 +138,6 @@
               <span class="dele-btn">删除</span>
             </li>
           </ul>
-<<<<<<< HEAD
           <ul class="item-content layui-clear">
             <li class="th th-chk">
               <div class="select-all">
@@ -237,9 +206,6 @@
               <span class="dele-btn">删除</span>
             </li>
           </ul>
-=======
-      </c:forEach>
->>>>>>> branch 'master' of https://github.com/liangjuan928/SuperBoAi.git
         </div>
       </div>
 

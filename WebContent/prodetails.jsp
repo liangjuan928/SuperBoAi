@@ -18,5 +18,6 @@
 	%>
 	${pro.pro_intro }
 	<img src="res/static/img/details_imgbig.jpg">
+	
 </body>
 </html>

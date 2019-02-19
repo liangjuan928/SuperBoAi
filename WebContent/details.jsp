@@ -15,7 +15,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
   <script>
   	function showiframe(val){
-  		//document.getElementById("myiframe").src=val;
+  		document.getElementById("myiframe").src=val;
   		setIframeHeight(document.getElementById('myiframe'));
   	}
   	function setIframeHeight(iframe) {
@@ -27,7 +27,6 @@
       	}
 	};
 	window.onload = function () {
-		alert(document.querySelector("#aa").src);
 		setIframeHeight(document.getElementById('myiframe'));
 	};
 	var colors=null;
@@ -114,21 +113,15 @@
 	<%
 		session.setAttribute("user_id", "321");
 		String user_id=(String)session.getAttribute("user_id");
-		session.setAttribute("pro_id", "e383673a-8ff1-4f65-b728-0c8f3dd4f1c5");
+		session.setAttribute("pro_id", "6e1bb1c6-6bb5-4cef-a6c0-3ceeb5c3c3ce");
 		String pro_id=(String)session.getAttribute("pro_id");
 		ZwtService zs=new ZwtServiceImpl();
 		Product product=zs.queryProductById(pro_id);
 		String color=product.getPro_def();
 		String[] colors=color.split(",");
 		String pro_photo=product.getPro_photo();
-		//pro_photo=pro_photo.replace("\\", "/");
-		pro_photo=pro_photo.substring(pro_photo.lastIndexOf("\\")+1);
-
-		String path = request.getContextPath();
-		String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-		String picsrc=basePath+pro_photo;
+		pro_photo=pro_photo.replace("\\", "/");
 	%>
-	<%=picsrc %>
   <div class="site-nav-bg">
     <div class="site-nav w1200">
       <p class="sn-back-home">
@@ -189,7 +182,7 @@
       </div>
       <div class="product-intro layui-clear">
         <div class="preview-wrap">
-          <a href="javascript:;"><img id="aa" src="<%=picsrc%>"></a>
+          <a href="javascript:;"><img src="<%=pro_photo%>"></a>
         </div>
         <div class="itemInfo-wrap">
           <div class="itemInfo">

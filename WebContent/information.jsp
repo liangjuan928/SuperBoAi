@@ -148,7 +148,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
   </div>
   <!-- 模版引擎导入 -->
-  <script type="text/html" id="demo">
+  <!-- <script type="text/html" id="demo">
     {{# layui.each(d.listCont,function(index,item){}}
     <div class="item">
       <div class="img">
@@ -161,7 +161,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </div>
     </div>
     {{# })}}
-  </script> 
+  </script> -->
 <script>
   /* layui.config({
     base: 'res/static/js/util/' //你存放新模块的目录，注意，不是layui的模块目录
