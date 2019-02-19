@@ -1,4 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<%
+	HyDaoImpl hd=new HyDaoImpl();
+	HyServiceImpl hs=new HyServiceImpl();
+	List<Order1> list=null;
+	
+	Map map = (Map)request.getAttribute("map");
+	String size = request.getParameter("pageSize");
+	int pageSize = 3;
+	if(size!=null){
+		pageSize = Integer.parseInt(size);
+	}
+	int maxPage = hd.getMaxPageNo(pageSize);
+	int pageNo  = 1;
+	  		String no = request.getParameter("pageNo");
+	  		if(no!=null){
+	  			pageNo = Integer.parseInt(no);
+	  			if(pageNo < 1){
+	  				pageNo=1;
+	  			}
+	  			if(pageNo > maxPage){
+	  				pageNo=maxPage;
+	  			}
+	  		}
+	  		
+	  		if(map==null){
+	  			list = hd.splitQuery(pageSize,pageNo);
+  			}else{
+  				list =  hs.queryMohu(map);
+  			}	
+	  			
+  			pageContext.setAttribute("list",list);
+  			pageContext.setAttribute("pageNo",pageNo);
+	  		pageContext.setAttribute("maxPage",maxPage);
+	  		pageContext.setAttribute("pageSize",pageSize);
+ %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -23,6 +60,35 @@
   <![endif]-->
 <title>订单</title>
 
+  <script type="text/javascript">
+  	function newOr(flag){
+  		if(flag){
+  			alert("您的新订单来啦！");
+  		}else{
+  			//alert("暂无新订单！");
+  		}
+  	}
+  	
+  	function jump(){
+			var ps = document.getElementById("ps").value;
+			var pn = document.getElementById("pn").value;
+			if(ps==""){
+				ps = 3;
+			}
+			if(pn==""){
+				pn = 1;
+			}
+			location.href="Order.jsp?pageSize="+ps+"&pageNo="+pn;
+		}
+		
+		function submitData(){
+			var form=document.getElementById("moForm");
+			var hao=document.getElementById("hao").value;
+			form.action="mohu.do?hao="+hao;
+			form.method="post";
+			form.submit();
+		}
+  </script>
 </head>
 <body>
 <div class="margin order_style" id="page_style">
@@ -40,15 +106,19 @@
   <a href="javascrpit:void" class="btn button_btn btn-info status_btn">未完成(454)</a>
   <a href="javascrpit:void" class="btn button_btn btn-info status_btn">代发货(454)</a>
   <a href="javascrpit:void" class="btn button_btn btn-info status_btn">代付款(454)</a>
+  <a href="javascrpit:void" class="btn button_btn btn-info status_btn">待发货(454)</a>
+  <a href="javascrpit:void" class="btn button_btn btn-info status_btn">待付款(454)</a>
+<button class="btn button_btn btn-danger" type="button" onclick=""><i class="fa fa-trash-o"></i>&nbsp;删除</button> 
  </div>
 <div class="operation clearfix">
-<button class="btn button_btn btn-danger" type="button" onclick=""><i class="fa fa-trash-o"></i>&nbsp;删除</button> 
 <div class="search  clearfix">
- <label class="label_name">订单号：</label>
- <input name="" type="text"  class="form-control col-xs-6" style=" width:250px;"/>
-  <label class="label_name">下单时间：</label>
-  <input class="inline laydate-icon " id="start" type="text"  style=" margin-right:10px; height:auto; float:left; width:150px;" />
- <button class="btn button_btn bg-deep-blue " onclick=""  type="button"><i class="fa  fa-search"></i>&nbsp;搜索</button>
+	  <form id="moForm">
+		    	 <label class="label_name">订单号：</label>
+		    	 <input id="hao" type="text"  class="form-control col-xs-6" style=" width:250px;"/>
+		    	<label class="label_name">下单时间：</label>
+		    	<input class="inline laydate-icon " id="start" type="text"  style=" margin-right:10px; height:auto; float:left; width:150px;" />
+    		    <input class="btn button_btn bg-deep-blue "  type="submit" value="查询" onclick="submitData('${min}','${max }')"/>
+      </form>
 </div>
 </div>
 <div class="List_display">
@@ -73,6 +143,20 @@
    </tr>
   </tbody>
  </table>
+<<<<<<< HEAD
+=======
+    		<br/><br/>
+    		<center>
+    		<a href="Order.jsp?pageNo=1&pageSize=${pageSize }">首页</a>
+  	 		<a href="Order.jsp?pageNo=${pageNo-1}&pageSize=${pageSize }">上一页</a>
+  	 		<a href="Order.jsp?pageNo=${pageNo+1}&pageSize=${pageSize }">下一页</a>
+  	 		<a href="Order.jsp?pageNo=${maxPage }&pageSize=${pageSize }">末页</a><br/><br/>
+  	 		每页显示<input type="text" id="ps" value="${pageSize }"/>条,
+  	 		跳转到第<input type="text" id="pn" value="${pageNo }"/>页
+  	 		<button onclick="jump()">跳转</button><br/><br/>
+  	 		当前是第<${pageNo }>页，共<${maxPage }>页
+    	    </center>
+>>>>>>> branch 'master' of https://github.com/liangjuan928/SuperBoAi.git
 </div>
 </div>
 </body>
