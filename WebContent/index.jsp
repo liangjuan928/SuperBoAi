@@ -1,100 +1,15 @@
-<%@page import="cn.boai.pojo.User"%>
-<%@page import="cn.boai.service.hyservice.impl.HyServiceImpl"%>
-<%@page import="cn.boai.service.hyservice.HyService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-  
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
-
-<% 
-	String divid="1";
-	pageContext.setAttribute("divid", divid);
-	
-	HyServiceImpl hs=new HyServiceImpl();
-	User u=hs.queryUserById(divid);
- %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>博爱母婴商城首页 </title>
+  <title>博爱母婴商城首页</title>
   <link rel="stylesheet" type="text/css" href="res/static/css/main.css">
   <link rel="stylesheet" type="text/css" href="res/layui/css/layui.css">
   <script type="text/javascript" src="res/layui/layui.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-  <script type="text/javascript">
-  		var xmlHttp;
-		function createXmlHttp(){
-			if(window.XMLHttpRequest){//是火狐内核的
-				xmlHttp = new XMLHttpRequest();
-			}else{//IE内核
-				try{
-					xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
-				}catch(e){
-					xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-				}
-			} 
-		}
-  	    function show(id){
-			//将id使用ajax传入后台，查出一个user的信息（String）
-			if(!xmlHttp){
-				createXmlHttp();
-			}
-			id = encodeURI(encodeURI(id));
-			xmlHttp.open("GET","moudiv.do?divid="+id,true);
-			xmlHttp.onreadystatechange=callback2;
-			xmlHttp.send();
-		}  
-		var result;
-		function callback2(){
-			if(xmlHttp.readyState==4){
-				if(xmlHttp.status==200){
-					result= xmlHttp.responseText;//String的json
-				    console.log(result);
-				}
-			}
-		}
-		
-		var div;
-		
-		function showPosition(){
-		    console.log(div+"----------");
-			/* if(div){
-				div.style.display="none";
-			} */
-			div = document.createElement("div");
-			div.style.position = "absolute";
-			div.style.top=event.y+5;
-			div.style.left=event.x+5;
-			div.style.width="222px";
-			div.style.height="60px";
-			//div.style.color="white";
-			//div.style.background="pink";
-			div.style.backgroundImage="url('res/static/img/b1.jpg')";
-			div.style.backgroundSize="cover";
-			div.style.display="block";
-			
-			var msg="账户："+JSON.parse(result).user_name+"&nbsp;&nbsp;&nbsp;"
-					+"等级:"+JSON.parse(result).user_level ;
-			div.innerHTML="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"<img src='res/static/img/b2.jpg'/>"+"&nbsp;"+msg;
-			document.getElementById("divp").appendChild(div);
-		}
-		
-		function removeDiv(){
-			if(div){
-				div.style.display="none";
-				//document.divpp.removeChild(div);
-			}
-		} 
-		
-  </script>
 </head>
-
-
 <body id="list-cont">
   <div class="site-nav-bg">
     <div class="site-nav w1200">
@@ -102,11 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <i class="layui-icon layui-icon-home"></i>
         <a href="#">首页 </a>
       </p>
-      <div class="sn-quick-menu" id="divp">
-        <div id="${divid}" name="divp" onmouseenter="show('${divid}')" 
-    					onmouseover="showPosition()" onmouseout="removeDiv()">
-    		@<%=u.getUser_name() %>&nbsp;&nbsp;&nbsp;
-    	</div>
+      <div class="sn-quick-menu">
         <div class="login"><a href="login.jsp">登录</a></div>
         <div class="sp-cart"><a href="shopcart.jsp">购物车</a><span>2</span></div>
       </div>
@@ -124,8 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </h1>
         <div class="mallSearch">
           <form action="" class="layui-form" novalidate>
-            <input type="text"  style="padding-right: 50px;"
-            	name="title" required  lay-verify="required" autocomplete="off" class="layui-input" placeholder="请输入需要的商品">
+            <input type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input" placeholder="请输入需要的商品">
             <button class="layui-btn" lay-submit lay-filter="formDemo">
                 <i class="layui-icon layui-icon-search"></i>
             </button>

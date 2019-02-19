@@ -10,6 +10,8 @@ import java.util.List;
 
 
 import cn.boai.dao.daopack.AddressDao.AddressDao;
+import cn.boai.dao.daopack.CartDao.CartDao;
+import cn.boai.dao.daopack.CartDao.impl.CartDaoImpl;
 import cn.boai.dao.daopack.CommentDao.CommentDao;
 import cn.boai.dao.daopack.CommentDao.impl.CommentDaoImpl;
 import cn.boai.dao.daopack.ProductDao.ProductDao;
@@ -21,10 +23,12 @@ import cn.boai.dao.zwtdao.impl.ZwtDaoImpl;
 import cn.boai.db.DBHelper;
 import cn.boai.pojo.Address;
 import cn.boai.pojo.Article;
+import cn.boai.pojo.Cart;
 import cn.boai.pojo.Comment;
 import cn.boai.pojo.Product;
 import cn.boai.pojo.User;
 import cn.boai.service.zwtservice.ZwtService;
+import cn.boai.web.form.zwtform.AddCartForm;
 import cn.boai.web.form.zwtform.AddCommForm;
 import cn.boai.web.form.zwtform.AddProductForm;
 
@@ -33,6 +37,7 @@ public class ZwtServiceImpl implements ZwtService{
 	UserDao ud=new UserDaoImpl();
 	ProductDao pd=new ProductDaoImpl();
 	ZwtDao zd=new ZwtDaoImpl();
+	CartDao cad=new CartDaoImpl();
    
 	@Override
 	public boolean addComm(AddCommForm form) {
@@ -156,6 +161,32 @@ public class ZwtServiceImpl implements ZwtService{
 			DBHelper.closeConnection(conn);
 		}
 		return list;
+	}
+
+	@Override
+	public boolean addCart(AddCartForm form) {
+		Connection conn=DBHelper.getConnection();
+		Cart cart=new Cart();
+		cart.setPro_id(form.getPro_id());
+		cart.setUser_id(form.getUser_id());
+		cart.setCart_def(form.getCart_def());
+		cart.setPro_num(Integer.valueOf(form.getPro_num()));
+
+		boolean flag=false;
+		try {
+			conn.setAutoCommit(false);
+			flag = cad.saveCart(cart, conn);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}finally{
+			DBHelper.closeConnection(conn);
+		}
+		return flag;
 	}
 
 	

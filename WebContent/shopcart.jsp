@@ -1,13 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<%
-	String id="1";
-	session.setAttribute("uid", id);
-	
-	String proid="1";
-	session.setAttribute("proid", proid);
- %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,45 +9,6 @@
   <script type="text/javascript" src="res/layui/layui.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-  <script type="text/javascript">
-  		
-	  	function tan1(){
-	  		alert("您已免密支付成功，您的宝贝正在向您飞奔。。。 ");
-	  		var check=document.getElementsByTagName("input");
-	  		for(var i=0;i<check.length;i++){
-	  			if(check[i].checked){
-	  				var p=check[i].parentNode.parentNode.parentNode.parentNode;//ul
-	  				p.parentNode.removeChild(p);
-	  				
-	  				/* alert(p.tagName);
-	  				var c=p.childNodes;
-	  				for(var j=0;j<c.length;j++){
-	  					p.removeChild(c[i]);
-	  				}
-	  				p.removeChild(p.firstChild);
-	  				p.removeChild(p.lastChild); */
-	  			}
-	  		}
-	  	}
-	  	
-	  	//后台删除cart      a
-	  	function deleteCart(ud,pd){
-	  		var form=document.getElementById("mForm");
-			form.action="deleteCart.do?uid="+ud+"&proid="+pd;
-			form.method="post";
-			form.submit();
-	  	}
-	  	
-	  	
-	  	//加入后台订单
-	  	function addOrder(ud,pd){
-	  		var form=document.getElementById("mForm");
-	  		var tol=document.getElementById("tol").textContent.substr(1);
-	  		form.action="addOrder.do?uid="+ud+"&pids="+pd+"&total="+tol;
-			form.method="post";
-			form.submit();
-	  	}
-  </script>
 </head>
 <body>
 
@@ -156,7 +108,7 @@
             <li class="th th-chk">
               <div class="select-all">
                 <div class="cart-checkbox">
-                  <input class="CheckBoxShop check" id="ch_1" type="checkbox" num="all" name="select-all" value="true">
+                  <input class="CheckBoxShop check" id="" type="checkbox" num="all" name="select-all" value="true">
                 </div>
               </div>
             </li>
@@ -186,12 +138,11 @@
               <span class="dele-btn">删除</span>
             </li>
           </ul>
-         
-         <ul class="item-content layui-clear">
+          <ul class="item-content layui-clear">
             <li class="th th-chk">
               <div class="select-all">
                 <div class="cart-checkbox">
-                  <input class="CheckBoxShop check"  type="checkbox" num="all" name="select-all" value="true">
+                  <input class="CheckBoxShop check" id="" type="checkbox" num="all" name="select-all" value="true">
                 </div>
               </div>
             </li>
@@ -221,9 +172,83 @@
               <span class="dele-btn">删除</span>
             </li>
           </ul>
-      
+          <ul class="item-content layui-clear">
+            <li class="th th-chk">
+              <div class="select-all">
+                <div class="cart-checkbox">
+                  <input class="CheckBoxShop check" id="" type="checkbox" num="all" name="select-all" value="true">
+                </div>
+              </div>
+            </li>
+            <li class="th th-item">
+              <div class="item-cont">
+                <a href="javascript:;"><img src="res/static/img/paging_img3.jpg" alt=""></a>
+                <div class="text">
+                  <div class="title">宝宝T恤棉质小衫</div>
+                  <p><span>粉色</span>  <span>130</span>cm</p>
+                </div>
+              </div>
+            </li>
+            <li class="th th-price">
+              <span class="th-su">189.00</span>
+            </li>
+            <li class="th th-amount">
+              <div class="box-btn layui-clear">
+                <div class="less layui-btn">-</div>
+                <input class="Quantity-input" type="" name="" value="1" disabled="disabled">
+                <div class="add layui-btn">+</div>
+              </div>
+            </li>
+            <li class="th th-sum">
+              <span class="sum">189.00</span>
+            </li>
+            <li class="th th-op">
+              <span class="dele-btn">删除</span>
+            </li>
+          </ul>
         </div>
       </div>
+
+
+      <!-- 模版导入数据 -->
+      <!-- <script type="text/html" id="demo">
+        {{# layui.each(d.infoList,function(index,item){}}
+          <ul class="item-content layui-clear">
+            <li class="th th-chk">
+              <div class="select-all">
+                <div class="cart-checkbox">
+                  <input class="CheckBoxShop check" id="" type="checkbox" num="all" name="select-all" value="true">
+                </div>
+              </div>
+            </li>
+            <li class="th th-item">
+              <div class="item-cont">
+                <a href="javascript:;"><img src="../res/static/img/paging_img1.jpg" alt=""></a>
+                <div class="text">
+                  <div class="title">宝宝T恤棉质小衫</div>
+                  <p><span>粉色</span>  <span>130</span>cm</p>
+                </div>
+              </div>
+            </li>
+            <li class="th th-price">
+              <span class="th-su">189.00</span>
+            </li>
+            <li class="th th-amount">
+              <div class="box-btn layui-clear">
+                <div class="less layui-btn">-</div>
+                <input class="Quantity-input" type="" name="" value="1" disabled="disabled">
+                <div class="add layui-btn">+</div>
+              </div>
+            </li>
+            <li class="th th-sum">
+              <span class="sum">189.00</span>
+            </li>
+            <li class="th th-op">
+              <span class="dele-btn">删除</span>
+            </li>
+          </ul>
+        {{# });}}
+      </script> -->
 
 
       <div class="FloatBarHolder layui-clear">
@@ -239,11 +264,10 @@
           <span class="batch-dele-btn">批量删除</span>
         </div>
         <div class="th Settlement">
-          <button class="layui-btn" onclick="tan1();deleteCart('${uid}','${proid}');addOrder('${uid}','${proid}');">结算</button>
-          <form id="mForm"></form>
+          <button class="layui-btn">结算</button>
         </div>
         <div class="th total">
-          <p>应付：<span class="pieces-total" id="tol">0</span></p>
+          <p>应付：<span class="pieces-total">0</span></p>
         </div>
       </div>
     </div>

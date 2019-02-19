@@ -29,7 +29,7 @@ public class AddProductAction extends DispatcherAction {
 		String photo=af.getPro_photo();
 		byte[] b = decoder.decodeBuffer(photo.substring(photo.indexOf(",")+1));
 		String path = request.getServletContext().getRealPath("/");
-		path +="upload/"+new Date().getTime()+"."+af.getPhoto_type();
+		path +="upload/images/"+new Date().getTime()+"."+af.getPhoto_type();
 		System.out.println(path);
 		BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(path));
 		bos.write(b);

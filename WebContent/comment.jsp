@@ -97,11 +97,8 @@
     </script>
 </head>
 <body>
-
-	<%session.setAttribute("user_id", "321"); %>
-	<%String user_id=(String)session.getAttribute("user_id"); %>
-	<%session.setAttribute("pro_id", "123"); %>
-	<%String pro_id=(String)session.getAttribute("pro_id"); %>
+	<%String user_id=(String)request.getParameter("user_id"); %>
+	<%String pro_id=(String)request.getParameter("pro_id"); %>
 	
 	
 			<div class="topnews">
@@ -185,29 +182,28 @@
 	    </table>
 
   	</div>
-  	<div id="fenye">
+  	<div id="fenye" style="padding-left:300px;">
         <nav aria-label="Page navigation">
 		  <ul class="pagination">
 		  <li><a href="comment.jsp?page=1">首页</a></li>
 		    <li>
-		      <a href="comment.jsp?page=${page-1}" aria-label="Previous">
+		      <a href="comment.jsp?page=${commpage-1}" aria-label="Previous">
 		        <span aria-hidden="true">&laquo;</span>
 		      </a>
 		    </li>
-		    <li><a href="#">${page}</a></li>
+		    <li><a href="#">${commpage}</a></li>
 		    <li>
-		      <a href="comment.jsp?page=${page+1}" aria-label="Next">
+		      <a href="comment.jsp?page=${commpage+1}" aria-label="Next">
 		        <span aria-hidden="true">&raquo;</span>
 		      </a>
 		    </li>
 		    <li><a href="comment.jsp?page=-1">末页</a></li>
-		     <li><a href="#">总共10页</a></li>
+		     <li><a href="#">总共${maxpagenum}页</a></li>
 		  </ul>
 		</nav>
         </div>
   	<br/>
-  	<br/>
-  	<br/>
+
   	<div class="topnews">
 		<h2><b>&emsp;发布评论</b></h2>
 	</div>

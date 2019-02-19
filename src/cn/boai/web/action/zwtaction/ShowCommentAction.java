@@ -29,16 +29,17 @@ public class ShowCommentAction implements Action  {
 		if(strpage==null){  //如果是第一次加载就默认在第一页
 			strpage="1";
 		}
-		int page=Integer.parseInt(strpage);
-		int maxpagenum=zs.getCommMaxPageNum(pro_id,6);
-		if(page==-1||(page>maxpagenum)){   
-			page=maxpagenum;
+		int commpage=Integer.parseInt(strpage);
+		int maxpagenum=zs.getCommMaxPageNum(pro_id,5);
+		if(commpage==-1||(commpage>maxpagenum)){   
+			commpage=maxpagenum;
 		}
-		if(page<1){
-			page=1;
+		if(commpage<1){
+			commpage=1;
 		}
-		List<Comment> list=zs.SplitCommList(pro_id,page, 6); 
-		request.setAttribute("page",page);
+		List<Comment> list=zs.SplitCommList(pro_id,commpage, 5); 
+		request.setAttribute("maxpagenum", maxpagenum);
+		request.setAttribute("commpage",commpage);
 		request.setAttribute("commlist", list);   //将添加结果返回给页面
 		ActionResult ar = null;
 		if(list!=null){
