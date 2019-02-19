@@ -1,3 +1,6 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="cn.boai.pojo.Product"%>
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@page import="cn.boai.service.hyservice.impl.HyServiceImpl"%>
 <%@page import="cn.boai.pojo.Cart"%>
 <%@page import="java.util.List"%>
@@ -14,9 +17,17 @@
 	
 	HyServiceImpl hs=new HyServiceImpl();
 	List<Cart> list=hs.queryAllCart();
+	
+	List<Product> list2=new ArrayList();
+	for(int i=0;i<list.size();i++){
+		String str=list.get(i).getPro_id();
+		Product p=hs.queryProById(str);
+		list2.add(p);
+	}
+	
 	pageContext.setAttribute("list", list);
+	pageContext.setAttribute("list2", list2);
  %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -174,13 +185,13 @@
               <div class="item-cont">
                 <a href="javascript:;"><img src="res/static/img/paging_img1.jpg" alt=""></a>
                 <div class="text">
-                  <div class="title">宝宝T恤棉质小衫</div>
+                  <div class="title">${list2[sta.count-1].pro_title }</div>
                   <p><span>${u.cart_def }</span>  <span>130</span>cm</p>
                 </div>
               </div>
             </li>
             <li class="th th-price">
-              <span class="th-su">189.00</span>
+              <span class="th-su">${list2[sta.count-1].pro_newprice }</span>
             </li>
             <li class="th th-amount">
               <div class="box-btn layui-clear">
