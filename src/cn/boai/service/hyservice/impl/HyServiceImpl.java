@@ -3,6 +3,7 @@ package cn.boai.service.hyservice.impl;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import cn.boai.dao.daopack.CartDao.impl.CartDaoImpl;
 import cn.boai.dao.daopack.OrderDao.impl.OrderDaoImpl;
@@ -116,6 +117,26 @@ public class HyServiceImpl implements HyService{
 		}
 		return flag;
 	}
+
+	public List<Order1> queryMohu(Map<String, String> condition){
+		Connection conn = DBHelper.getConnection();
+		List<Order1> list = null;
+		try {
+			conn.setAutoCommit(false);
+			list = hd.selectOrderMohu(conn, condition);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}finally{
+			DBHelper.closeConnection(conn);
+		}
+		return list;
+	}
+
 	
 	
 }

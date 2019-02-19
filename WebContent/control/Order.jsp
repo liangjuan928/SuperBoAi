@@ -31,8 +31,11 @@
 	  			}
 	  		}
 	  		
-	  		
+	  		if(map==null){
 	  			list = hd.splitQuery(pageSize,pageNo);
+  			}else{
+  				list =  hs.queryMohu(map);
+  			}	
 	  			
   			pageContext.setAttribute("list",list);
   			pageContext.setAttribute("pageNo",pageNo);
@@ -69,7 +72,7 @@
   		if(flag){
   			alert("您的新订单来啦！");
   		}else{
-  			alert("暂无新订单！");
+  			//alert("暂无新订单！");
   		}
   	}
   	
@@ -83,6 +86,14 @@
 				pn = 1;
 			}
 			location.href="Order.jsp?pageSize="+ps+"&pageNo="+pn;
+		}
+		
+		function submitData(){
+			var form=document.getElementById("moForm");
+			var hao=document.getElementById("hao").value;
+			form.action="mohu.do?hao="+hao;
+			form.method="post";
+			form.submit();
 		}
   </script>
 </head>
@@ -103,15 +114,17 @@
   <a href="javascrpit:void" class="btn button_btn btn-info status_btn">未完成(454)</a>
   <a href="javascrpit:void" class="btn button_btn btn-info status_btn">待发货(454)</a>
   <a href="javascrpit:void" class="btn button_btn btn-info status_btn">待付款(454)</a>
+<button class="btn button_btn btn-danger" type="button" onclick=""><i class="fa fa-trash-o"></i>&nbsp;删除</button> 
  </div>
 <div class="operation clearfix">
-<button class="btn button_btn btn-danger" type="button" onclick=""><i class="fa fa-trash-o"></i>&nbsp;删除</button> 
 <div class="search  clearfix">
- <label class="label_name">订单号：</label>
- <input name="" type="text"  class="form-control col-xs-6" style=" width:250px;"/>
-  <label class="label_name">下单时间：</label>
-  <input class="inline laydate-icon " id="start" type="text"  style=" margin-right:10px; height:auto; float:left; width:150px;" />
- <button class="btn button_btn bg-deep-blue " onclick=""  type="button"><i class="fa  fa-search"></i>&nbsp;搜索</button>
+	  <form id="moForm">
+		    	 <label class="label_name">订单号：</label>
+		    	 <input id="hao" type="text"  class="form-control col-xs-6" style=" width:250px;"/>
+		    	<label class="label_name">下单时间：</label>
+		    	<input class="inline laydate-icon " id="start" type="text"  style=" margin-right:10px; height:auto; float:left; width:150px;" />
+    		    <input class="btn button_btn bg-deep-blue "  type="submit" value="查询" onclick="submitData('${min}','${max }')"/>
+      </form>
 </div>
 </div>
 <div class="List_display">
@@ -158,7 +171,7 @@
   	 		每页显示<input type="text" id="ps" value="${pageSize }"/>条,
   	 		跳转到第<input type="text" id="pn" value="${pageNo }"/>页
   	 		<button onclick="jump()">跳转</button><br/><br/>
-  	 		当前是第${pageNo }页，共${maxPage }页
+  	 		当前是第<${pageNo }>页，共<${maxPage }>页
     	    </center>
 </div>
 </div>
