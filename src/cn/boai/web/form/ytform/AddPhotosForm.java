@@ -2,7 +2,7 @@ package cn.boai.web.form.ytform;
 
 import cn.boai.web.form.ActionForm;
 
-public class AddPhotosFrom extends ActionForm{
+public class AddPhotosForm extends ActionForm{
 	String uphoto;
 	String photo_type;
 	String pro_photo;

@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>登录</title>
   <link rel="stylesheet" type="text/css" href="res/static/css/main.css">
   <link rel="stylesheet" type="text/css" href="res/layui/css/layui.css">
   <script type="text/javascript" src="res/layui/layui.js"></script>
@@ -11,6 +11,27 @@
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 </head>
 <body>
+ <%--
+      String username = "";
+      String password = "";
+      String s;
+      Cookie [] cookies =request.getCookies();
+      for (Cookie cookie:cookies) {
+        s=cookie.getName(); //通过getName方法获得cookie的名称
+        if (s.equals("username")) {
+          if (cookie.getValue()!=null) {
+            username=username+cookie.getValue(); //通过getValue方法获得cookie的值
+          }
+        } else 
+        if (s.equals("password")) {
+          if (cookie.getValue()!=null) {
+            password=password+cookie.getValue();
+          }
+        }
+      }
+    --%>
+
+    <%=request.getAttribute("fasong") %>
 
   <div class="site-nav-bg">
     <div class="site-nav w1200">
@@ -36,7 +57,7 @@
           </a>
         </h1>
         <div class="mallSearch">
-          <form action="" class="layui-form" novalidate>
+          <form  action="login.jsp" method="post" class="layui-form" novalidate>
             <input type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input" placeholder="请输入需要的商品">
             <button class="layui-btn" lay-submit lay-filter="formDemo">
                 <i class="layui-icon layui-icon-search"></i>
@@ -58,6 +79,7 @@
             <a href="buytoday.jsp">今日团购</a>
             <a href="information.jsp">母婴资讯</a>
             <a href="about.jsp">关于我们</a>
+            
           </div>
         </div>
       </div>
@@ -65,25 +87,34 @@
     <div class="login-bg">
       <div class="login-cont w1200">
         <div class="form-box">
-          <form class="layui-form" action="">
-            <legend>手机号登录</legend>
+          <form class="layui-form" method="post" action="login_check.do" id="myform">
+          <input type="hidden" name="param" value="logintest"/>
+            <legend>账号登录|<a href="register.jsp">点我注册</a></legend>
             <div class="layui-form-item">
-              <div class="layui-inline iphone">
+              <div class="layui-inline">
                 <div class="layui-input-inline">
-                  <i class="layui-icon layui-icon-cellphone iphone-icon"></i>
-                  <input type="tel" name="phone" id="phone" lay-verify="required|phone" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+                  <input id="uname"  type="tel" name="uname" lay-verify="required"
+                   placeholder="请输入你的用户名" autocomplete="off" class="layui-input" onblur="check1()">
+                     <div><label id="span1"></label></div>
                 </div>
               </div>
               <div class="layui-inline veri-code">
                 <div class="layui-input-inline">
-                  <input id="pnum" type="text" name="pnum" lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input">
-                  <input type="button" class="layui-btn" id="find"  value="验证码" /> 
+                  <input id="upass" type="password" name="upass" lay-verify="required" 
+                  placeholder="请输入你的密码" autocomplete="off" class="layui-input" onblur="check2()">
+                    <div><label id="span2"></label></div>
                 </div>
               </div>
             </div>
+            <div class="layui-input-line">
+                   <div class="layui-form-inline">
+                      <input type="checkbox" name="" >记住密码
+                      <input type="checkbox" name="" >自动登录
+                   </div>
+            </div>
             <div class="layui-form-item login-btn">
               <div class="layui-input-block">
-                <button class="layui-btn" lay-submit="" lay-filter="demo1" onclick="return false">登录</button>
+                <button class="layui-btn" lay-submit="" lay-filter="demo1" id="login_btn" onclick="click()" >登录</button>
               </div>
             </div>
           </form>
@@ -118,56 +149,67 @@
     </div>
   </div>
   <script type="text/javascript">
-   layui.config({
-      base: 'res/static/js/util' //你存放新模块的目录，注意，不是layui的模块目录
-    }).use(['jquery','form'],function(){
-          var $ = layui.$,form = layui.form;
-
-
-        $("#find").click(function() {
-            if(!/^1\d{10}$/.test($("#phone").val())){
-              layer.msg("请输入正确的手机号");
-              return false;
-            }
-            var obj=this;
-            $.ajax({
-                type:"get",
-                url:"json/login.json",
-                dataType:"json",//返回的
-                success:function(data) {
-                    
-                    if(data.result){
-                        $("#find").addClass(" layui-btn-disabled");
-                        $('#find').attr('disabled',"true");
-                        settime(obj);
-                        $("#msg").text(data.msg);
-                    }else{
-                        layer.msg(data.msg);
-                    }
-                },
-                error:function(msg) {
-                    console.log(msg);
-                }
-            }); 
-        })
-        var countdown=60; 
-        function settime(obj) { 
-        if (countdown == 0) { 
-            obj.removeAttribute("disabled"); 
-            obj.classList.remove("layui-btn-disabled")
-            obj.value="获取验证码"; 
-            countdown = 60; 
-            return;
-        } else { 
-            
-            obj.value="重新发送(" + countdown + ")"; 
-            countdown--; 
-        } 
-        setTimeout(function() { 
-            settime(obj) }
-            ,1000) 
-        }
-    })
+  function check1(){
+		if(document.getElementById("uname").value==""){
+			document.getElementById("span1").innerHTML = "用户名不能为空！";
+			   document.getElementById("span1").style.color="red";
+		}else{
+			document.getElementById("span1").innerHTML="";  			
+		}
+	   }
+  
+  function check2(){
+		if(document.getElementById("upass").value==""){
+			document.getElementById("span2").innerHTML = "密码不能为空！";
+			   document.getElementById("span2").style.color="red";
+		}else{
+			document.getElementById("span2").innerHTML="";  			
+		}
+	   }
+    function click(){
+    	if(document.getElementById("uname").value==""||document.getElementById("upass").value==""){
+    		alert("请先填写用户名和密码！");   		
+    	}
+    	if(window.XMLHttpRequest){
+			 xmlHttp = new XMLHttpRequest();
+		  }else{//IE内核
+			 try{
+				 xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+			 }catch(e){
+				 xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+	   }
+		    	 }
+		 
+			//获得要发送的数据
+			var vname = document.getElementById("uname").value;
+			var vpass = document.getElementById("upass").value;
+			//将数据进行编码(安全考虑应该编2次)
+			vname = encodeURI(encodeURI(vname));
+			vpass = encodeURI(encodeURI(vpass));
+			//定位要发送的目的
+			xmlHttp.open("GET","login_addForm.do?uname="+vname,true);
+			xmlHttp.open("GET","login_addForm.do?upass="+vpass,true);
+			//指定一个回调函数			
+			xmlHttp.onreadystatechange=callback;
+			
+			//发送
+			xmlHttp.send();			
+			
+		  }
+    
+		  function callback(){
+			if(xmlHttp.readyState==4){
+				if(xmlHttp.status==200){
+					//一切正常并能开始获得返回的结果
+					var result= xmlHttp.responseText;
+					if(result=="true"){
+						window.location="commodity.jsp";
+					}
+					else window.location="login.jsp";
+				}
+			}
+    	
+    }
   </script>
 
 </body>

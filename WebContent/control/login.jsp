@@ -29,7 +29,8 @@
       <div class="clearfix">
        <div class="login_icon"><img src="images/login_bg.png" /></div>
        <div class="add_login_cont Reg_log_style ">
-        <form class="" id="">
+        <form class="" id="manager_form">
+        <input type="hidden" name="param" value="checkManager"/>
          <ul class="r_f">
           <li class="frame_style form_error"><label class="user_icon"></label><input name="username" data-name="用户名" type="text" id="username"><i>用户名</i></li>
           <li class="frame_style form_error"><label class="password_icon"></label><input name="userpwd" data-name="密码" type="password" id="userpwd"><i>密码</i></li>

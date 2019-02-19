@@ -1,7 +1,6 @@
 package cn.boai.dao.ytdao;
 
 import java.sql.Connection;
-import java.util.List;
 
 import cn.boai.dao.daopack.UserDao.UserDao;
 import cn.boai.pojo.User;

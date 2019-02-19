@@ -1,7 +1,6 @@
 package cn.boai.web.action.ytaction;
 
 import java.io.IOException;
-import java.net.URLDecoder;
 import java.sql.Connection;
 
 import javax.servlet.ServletException;
@@ -13,14 +12,14 @@ import cn.boai.dao.ytdao.impl.YtDaoImpl;
 import cn.boai.db.DBHelper;
 import cn.boai.pojo.User;
 import cn.boai.util.ChangePass;
-import cn.boai.web.core.Action;
 import cn.boai.web.core.ActionResult;
+import cn.boai.web.core.DispatcherAction;
 import cn.boai.web.core.ResultContent;
 import cn.boai.web.core.ResultType;
 import cn.boai.web.form.ActionForm;
 
-public class CheckUserAction implements Action{
-	YtDao yd=new YtDaoImpl();
+public class CheckManagerAction extends DispatcherAction{
+    YtDao yd=new YtDaoImpl();
 	public ActionResult execute(HttpServletRequest request, HttpServletResponse reponse, ActionForm form)
 			throws ServletException, IOException{
 		System.out.print("aaa");

@@ -8,9 +8,7 @@ import cn.boai.dao.ytdao.impl.YtDaoImpl;
 import cn.boai.db.DBHelper;
 import cn.boai.pojo.User;
 import cn.boai.service.ytservice.YtService;
-import cn.boai.web.form.ytform.AddPhotosFrom;
 import cn.boai.web.form.ytform.AddUsersForm;
-import cn.boai.web.form.ytform.CheckUserNameForm;
 
 public class YtServiceImpl implements YtService{
 	YtDao yd=new YtDaoImpl();

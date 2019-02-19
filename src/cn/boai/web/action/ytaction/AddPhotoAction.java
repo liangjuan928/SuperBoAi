@@ -11,7 +11,7 @@ import cn.boai.web.core.Action;
 import cn.boai.web.core.ActionResult;
 import cn.boai.web.core.DispatcherAction;
 import cn.boai.web.form.ActionForm;
-import cn.boai.web.form.ytform.AddPhotosFrom;
+import cn.boai.web.form.ytform.AddPhotosForm;
 import sun.misc.BASE64Decoder;
 
 public class AddPhotoAction extends DispatcherAction{
@@ -19,7 +19,7 @@ public class AddPhotoAction extends DispatcherAction{
 	public ActionResult Addphoto(HttpServletRequest request, HttpServletResponse reponse, ActionForm form)
 			throws ServletException, IOException {
 		System.out.println("hhh");
-		AddPhotosFrom ap=(AddPhotosFrom)form;
+		AddPhotosForm ap=(AddPhotosForm)form;
 		BASE64Decoder bDecoder=new BASE64Decoder();
 		String photo = ap.getUphoto();
 		byte[] dephoto=bDecoder.decodeBuffer(photo.substring(photo.indexOf(",")+1));
