@@ -1,4 +1,9 @@
+<%@page import="cn.boai.service.hyservice.impl.HyServiceImpl"%>
+<%@page import="cn.boai.pojo.Cart"%>
+<%@page import="java.util.List"%>
+<%@page import="cn.boai.dao.daopack.CartDao.impl.CartDaoImpl"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
 	String id="1";
@@ -6,6 +11,10 @@
 	
 	String proid="1";
 	session.setAttribute("proid", proid);
+	
+	HyServiceImpl hs=new HyServiceImpl();
+	List<Cart> list=hs.queryAllCart();
+	pageContext.setAttribute("list", list);
  %>
 
 <!DOCTYPE html>
@@ -152,6 +161,7 @@
       </div>
       <div class="OrderList">
         <div class="order-content" id="list-cont">
+        <c:forEach items="${list}" var="u" varStatus="sta">
           <ul class="item-content layui-clear">
             <li class="th th-chk">
               <div class="select-all">
@@ -165,7 +175,7 @@
                 <a href="javascript:;"><img src="res/static/img/paging_img1.jpg" alt=""></a>
                 <div class="text">
                   <div class="title">宝宝T恤棉质小衫</div>
-                  <p><span>粉色</span>  <span>130</span>cm</p>
+                  <p><span>${u.cart_def }</span>  <span>130</span>cm</p>
                 </div>
               </div>
             </li>
@@ -186,42 +196,7 @@
               <span class="dele-btn">删除</span>
             </li>
           </ul>
-         
-         <ul class="item-content layui-clear">
-            <li class="th th-chk">
-              <div class="select-all">
-                <div class="cart-checkbox">
-                  <input class="CheckBoxShop check"  type="checkbox" num="all" name="select-all" value="true">
-                </div>
-              </div>
-            </li>
-            <li class="th th-item">
-              <div class="item-cont">
-                <a href="javascript:;"><img src="res/static/img/paging_img2.jpg" alt=""></a>
-                <div class="text">
-                  <div class="title">宝宝T恤棉质小衫</div>
-                  <p><span>粉色</span>  <span>130</span>cm</p>
-                </div>
-              </div>
-            </li>
-            <li class="th th-price">
-              <span class="th-su">189.00</span>
-            </li>
-            <li class="th th-amount">
-              <div class="box-btn layui-clear">
-                <div class="less layui-btn">-</div>
-                <input class="Quantity-input" type="" name="" value="1" disabled="disabled">
-                <div class="add layui-btn">+</div>
-              </div>
-            </li>
-            <li class="th th-sum">
-              <span class="sum">189.00</span>
-            </li>
-            <li class="th th-op">
-              <span class="dele-btn">删除</span>
-            </li>
-          </ul>
-      
+      </c:forEach>
         </div>
       </div>
 

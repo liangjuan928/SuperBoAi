@@ -13,7 +13,6 @@ import cn.boai.service.hyservice.impl.HyServiceImpl;
 import cn.boai.web.core.Action;
 import cn.boai.web.core.ActionResult;
 import cn.boai.web.core.ResultContent;
-import cn.boai.web.core.ResultType;
 import cn.boai.web.form.ActionForm;
 
 /**

@@ -10,6 +10,7 @@ import cn.boai.dao.daopack.OrderDao.impl.OrderDaoImpl;
 import cn.boai.dao.daopack.UserDao.impl.UserDaoImpl;
 import cn.boai.dao.hydao.impl.HyDaoImpl;
 import cn.boai.db.DBHelper;
+import cn.boai.pojo.Cart;
 import cn.boai.pojo.Order1;
 import cn.boai.pojo.User;
 import cn.boai.service.hyservice.HyService;
@@ -20,7 +21,6 @@ public class HyServiceImpl implements HyService{
 	private OrderDaoImpl od=new OrderDaoImpl();
 	private HyDaoImpl hd=new HyDaoImpl();
 
-	@Override
 	public User queryUserById(String uid) {
 		Connection conn = DBHelper.getConnection();
 		User user = null;
@@ -136,6 +136,26 @@ public class HyServiceImpl implements HyService{
 			DBHelper.closeConnection(conn);
 		}
 		System.out.println("service  ok");
+		return list;
+	}
+
+	@Override
+	public List<Cart> queryAllCart() {
+		Connection conn = DBHelper.getConnection();
+		List<Cart> list = null;
+		try {
+			conn.setAutoCommit(false);
+			list=cd.selectAllCart(conn);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}finally{
+			DBHelper.closeConnection(conn);
+		}
 		return list;
 	}
 
