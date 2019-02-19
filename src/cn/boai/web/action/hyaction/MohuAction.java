@@ -9,8 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import cn.boai.dao.hydao.impl.HyDaoImpl;
-import cn.boai.pojo.Order1;
 import cn.boai.service.hyservice.impl.HyServiceImpl;
 import cn.boai.web.core.Action;
 import cn.boai.web.core.ActionResult;
@@ -33,9 +31,11 @@ public class MohuAction implements Action{
 		if(!"".equals(hao)){
 			map.put("hao",hao);
 		}
+		
 		request.setAttribute("map",map);
 		request.setAttribute("hao",hao);
-		return new ActionResult(new ResultContent("Order",map),ResultType.Forward);
+		
+		return new ActionResult(new ResultContent("order",map),ResultType.Forward);
 	}
 	
 }

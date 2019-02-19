@@ -41,16 +41,16 @@ public class HyDaoImpl implements HyDao{
 		int index = 0;
 		for (Map.Entry<String, String> entry : me) {
 			String k = entry.getKey();
-			if("order_id".equals(k)){
-				sql += " and uname like ?";
+			if("hao".equals(k)){
+				sql += " and order_id like ?";
 			}
 		}
-		System.out.println("sql完成");
+		System.out.println("sql完成============"+sql);
 		PreparedStatement ps = null;
 		ps = conn.prepareStatement(sql);
 		for (Map.Entry<String, String> entry : me) {
 			String k = entry.getKey();
-			if("order_id".equals(k)){
+			if("hao".equals(k)){
 				ps.setString(++index, "%"+entry.getValue()+"%");
 			}
 		}

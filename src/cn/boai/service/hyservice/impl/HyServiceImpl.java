@@ -123,6 +123,7 @@ public class HyServiceImpl implements HyService{
 		List<Order1> list = null;
 		try {
 			conn.setAutoCommit(false);
+			System.out.println("service map==========="+condition);
 			list = hd.selectOrderMohu(conn, condition);
 			conn.commit();
 		} catch (Exception e) {
@@ -134,6 +135,7 @@ public class HyServiceImpl implements HyService{
 		}finally{
 			DBHelper.closeConnection(conn);
 		}
+		System.out.println("service  ok");
 		return list;
 	}
 
