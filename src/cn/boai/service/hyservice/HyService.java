@@ -5,6 +5,7 @@ import java.util.Map;
 
 import cn.boai.pojo.Cart;
 import cn.boai.pojo.Order1;
+import cn.boai.pojo.Product;
 import cn.boai.pojo.User;
 
 public interface HyService {
@@ -16,4 +17,5 @@ public interface HyService {
 	public List<Order1> queryMohu(Map<String, String> condition);
 	
 	public List<Cart> queryAllCart() ;
+	public Product queryProById(String pid);
 }

@@ -7,11 +7,13 @@ import java.util.Map;
 
 import cn.boai.dao.daopack.CartDao.impl.CartDaoImpl;
 import cn.boai.dao.daopack.OrderDao.impl.OrderDaoImpl;
+import cn.boai.dao.daopack.ProductDao.impl.ProductDaoImpl;
 import cn.boai.dao.daopack.UserDao.impl.UserDaoImpl;
 import cn.boai.dao.hydao.impl.HyDaoImpl;
 import cn.boai.db.DBHelper;
 import cn.boai.pojo.Cart;
 import cn.boai.pojo.Order1;
+import cn.boai.pojo.Product;
 import cn.boai.pojo.User;
 import cn.boai.service.hyservice.HyService;
 
@@ -20,6 +22,7 @@ public class HyServiceImpl implements HyService{
 	private CartDaoImpl cd=new CartDaoImpl();
 	private OrderDaoImpl od=new OrderDaoImpl();
 	private HyDaoImpl hd=new HyDaoImpl();
+	private ProductDaoImpl pd=new ProductDaoImpl();
 
 	public User queryUserById(String uid) {
 		Connection conn = DBHelper.getConnection();
@@ -157,6 +160,26 @@ public class HyServiceImpl implements HyService{
 			DBHelper.closeConnection(conn);
 		}
 		return list;
+	}
+
+	@Override
+	public Product queryProById(String pid) {
+		Connection conn = DBHelper.getConnection();
+		Product users = null;
+		try {
+			conn.setAutoCommit(false);
+			users = pd.selectProductById(pid, conn);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}finally{
+			DBHelper.closeConnection(conn);
+		}
+		return users;
 	}
 
 	
