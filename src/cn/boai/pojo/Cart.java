@@ -9,6 +9,13 @@ public class Cart implements Serializable{
 	private String user_id;
 	private String pro_id;
 	private String cart_def;
+	private int pro_num;
+	public int getPro_num() {
+		return pro_num;
+	}
+	public void setPro_num(int pro_num) {
+		this.pro_num = pro_num;
+	}
 	public String getUser_id() {
 		return user_id;
 	}

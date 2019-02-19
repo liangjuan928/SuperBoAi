@@ -1,3 +1,5 @@
+<%@page import="java.util.Map"%>
+<%@page import="cn.boai.dao.hydao.impl.HyDaoImpl"%>
 <%@page import="java.util.List"%>
 <%@page import="cn.boai.service.hyservice.HyService"%>
 <%@page import="cn.boai.service.hyservice.impl.HyServiceImpl"%>
@@ -6,11 +8,38 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
+	HyDaoImpl hd=new HyDaoImpl();
 	HyServiceImpl hs=new HyServiceImpl();
-	List<Order1> list=hs.queryAllOrder();
-	pageContext.setAttribute("list",list);
+	List<Order1> list=null;
+	
+	Map map = (Map)request.getAttribute("map");
+	String size = request.getParameter("pageSize");
+	int pageSize = 3;
+	if(size!=null){
+		pageSize = Integer.parseInt(size);
+	}
+	int maxPage = hd.getMaxPageNo(pageSize);
+	int pageNo  = 1;
+	  		String no = request.getParameter("pageNo");
+	  		if(no!=null){
+	  			pageNo = Integer.parseInt(no);
+	  			if(pageNo < 1){
+	  				pageNo=1;
+	  			}
+	  			if(pageNo > maxPage){
+	  				pageNo=maxPage;
+	  			}
+	  		}
+	  		
+	  		
+	  			list = hd.splitQuery(pageSize,pageNo);
+	  			
+  			pageContext.setAttribute("list",list);
+  			pageContext.setAttribute("pageNo",pageNo);
+	  		pageContext.setAttribute("maxPage",maxPage);
+	  		pageContext.setAttribute("pageSize",pageSize);
+  			
  %>
-<%=list %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -43,6 +72,18 @@
   			alert("暂无新订单！");
   		}
   	}
+  	
+  	function jump(){
+			var ps = document.getElementById("ps").value;
+			var pn = document.getElementById("pn").value;
+			if(ps==""){
+				ps = 3;
+			}
+			if(pn==""){
+				pn = 1;
+			}
+			location.href="Order.jsp?pageSize="+ps+"&pageNo="+pn;
+		}
   </script>
 </head>
 

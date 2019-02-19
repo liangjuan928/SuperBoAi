@@ -29,12 +29,13 @@ public class CartDaoImpl implements CartDao{
 
 	public boolean saveCart(Cart c, Connection conn) throws Exception {
 		boolean flag = false;
-		String sql = "insert into cart(user_id,pro_id) values(?,?)";
+		String sql = "insert into cart(user_id,pro_id,cart_def,pro_num) values(?,?,?,?)";
 		PreparedStatement ps = null;
 		ps = conn.prepareStatement(sql);
-		String id=UUIDHelp.GetUUID();
-		ps.setString(1, id);
+		ps.setString(1, c.getUser_id());
 		ps.setString(2, c.getPro_id());
+		ps.setString(3, c.getCart_def());
+		ps.setInt(4, c.getPro_num());
 		int n = ps.executeUpdate();
 		if (n > 0) {
 			flag = true;
