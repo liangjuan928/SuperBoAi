@@ -1,4 +1,10 @@
+<%@page import="java.util.List"%>
+<%@page import="cn.boai.service.hyservice.HyService"%>
+<%@page import="cn.boai.service.hyservice.impl.HyServiceImpl"%>
+<%@page import="cn.boai.pojo.Order1"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -23,12 +29,22 @@
   <![endif]-->
 <title>订单</title>
 
+  <script type="text/javascript">
+  	function newOr(flag){
+  		if(flag){
+  			alert("您的新订单来啦！");
+  		}else{
+  			alert("暂无新订单！");
+  		}
+  	}
+  </script>
 </head>
-<body>
+
+<body onload="newOr(<%=(Boolean)session.getAttribute("newOrder") %>)">
 <div class="margin order_style" id="page_style">
 <div class="sum_style margin-bottom ">
  <ul class="clearfix">
-  <li class="col-xs-3 "><div class="sum_zone Amount">交易总额<span><em>￥</em>354465元</span></div></li>
+  <li class="col-xs-3 "><div class="sum_zone Amount">交易总额<span><em>￥</em>35446元</span></div></li>
   <li class="col-xs-3 "><div class="sum_yifu Amount">已付金额<span><em>￥</em>35465元</span></div></li>
   <li class="col-xs-3 "><div class="sum_daifu Amount">代付金额<span><em>￥</em>3545元</span></div></li>
   <li class="col-xs-3 "><div class="sum_tuikuan Amount">退款金额<span><em>￥</em>3545元</span></div></li>
@@ -38,8 +54,8 @@
   <a href="javascrpit:void" class="btn button_btn btn-info status_btn">所有订单(454)</a>
   <a href="javascrpit:void" class="btn button_btn btn-info status_btn">已完成(454)</a>
   <a href="javascrpit:void" class="btn button_btn btn-info status_btn">未完成(454)</a>
-  <a href="javascrpit:void" class="btn button_btn btn-info status_btn">代发货(454)</a>
-  <a href="javascrpit:void" class="btn button_btn btn-info status_btn">代付款(454)</a>
+  <a href="javascrpit:void" class="btn button_btn btn-info status_btn">待发货(454)</a>
+  <a href="javascrpit:void" class="btn button_btn btn-info status_btn">待付款(454)</a>
  </div>
 <div class="operation clearfix">
 <button class="btn button_btn btn-danger" type="button" onclick=""><i class="fa fa-trash-o"></i>&nbsp;删除</button> 
@@ -77,6 +93,11 @@
 </div>
 </body>
 </html>
+<%
+	HyService hs=new HyServiceImpl();
+	List<Order1> list=hs.queryAllOrder();
+	pageContext.setAttribute("list",list);
+ %>
 <script>
 var dataSet=[
  ['<label><input type="checkbox" class="ace"><span class="lbl"></span></label>','1','201608250560345','2016-08-25 12:23:34','345.50','3','已完成','2016-08-28 15:23:12','',' <a href="javascript:void()" onclick="picture_del(this,'+10001+')" class="btn btn-danger operation_btn">删除</a> <a href="Order_detailed.jsp" onclick="picture_img(this,'+234+')" class="btn bg-deep-blue operation_btn">查看</a>'],
