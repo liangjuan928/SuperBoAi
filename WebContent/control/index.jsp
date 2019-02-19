@@ -156,7 +156,7 @@
   </div>
 <!--底部-->
   <div class="Sellerber_bottom info" id="bottom">
-  <span class="l_f">版权所有：南京思美软件系统有限公司</span>
+  <span class="l_f">版权所有：侯芸有限公司</span>
   </div>
  </div>
 </body>

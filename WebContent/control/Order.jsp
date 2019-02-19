@@ -5,6 +5,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<%
+	HyServiceImpl hs=new HyServiceImpl();
+	List<Order1> list=hs.queryAllOrder();
+	pageContext.setAttribute("list",list);
+ %>
+<%=list %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -84,59 +90,41 @@
    <th width="150">操作</th>
    </tr>   
   </thead>
-  <tbody>
-   <tr>
-   </tr>
+  <tbody id="tbody">
+    				<c:forEach items="${list}" var="u" varStatus="sta">
+    					<tr >
+	    					<td width="30"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
+	    					<td>${sta.count}</td>
+	    					<td>${u.order_id}</td>
+	    					<td>${u.order_time}</td>
+	    					<td>${u.order_total}</td>
+	    					<td>${u.order_pay}</td>
+	    					<td>娟已发货</td>
+	    					<td>${u.order_time}</td>
+	    					<td>def</td>
+	    					<td><a href="javascript:void()" onclick="picture_del(this,'+10001+')" class="btn btn-danger operation_btn">删除</a> <a href="javascript:void()" onclick="picture_img(this,'+234+')" class="btn bg-deep-blue operation_btn">查看</a></td>
+    					</tr>	
+    				</c:forEach>
   </tbody>
+    			
  </table>
+    		<br/><br/>
+    		<center>
+    		<a href="Order.jsp?pageNo=1&pageSize=${pageSize }">首页</a>
+  	 		<a href="Order.jsp?pageNo=${pageNo-1}&pageSize=${pageSize }">上一页</a>
+  	 		<a href="Order.jsp?pageNo=${pageNo+1}&pageSize=${pageSize }">下一页</a>
+  	 		<a href="Order.jsp?pageNo=${maxPage }&pageSize=${pageSize }">末页</a><br/><br/>
+  	 		每页显示<input type="text" id="ps" value="${pageSize }"/>条,
+  	 		跳转到第<input type="text" id="pn" value="${pageNo }"/>页
+  	 		<button onclick="jump()">跳转</button><br/><br/>
+  	 		当前是第${pageNo }页，共${maxPage }页
+    	    </center>
 </div>
 </div>
 </body>
 </html>
-<%
-	HyService hs=new HyServiceImpl();
-	List<Order1> list=hs.queryAllOrder();
-	pageContext.setAttribute("list",list);
- %>
-<script>
-var dataSet=[
- ['<label><input type="checkbox" class="ace"><span class="lbl"></span></label>','1','201608250560345','2016-08-25 12:23:34','345.50','3','已完成','2016-08-28 15:23:12','',' <a href="javascript:void()" onclick="picture_del(this,'+10001+')" class="btn btn-danger operation_btn">删除</a> <a href="Order_detailed.jsp" onclick="picture_img(this,'+234+')" class="btn bg-deep-blue operation_btn">查看</a>'],
-  ['<label><input type="checkbox" class="ace"><span class="lbl"></span></label>','2','201608150560345','2016-08-25 12:23:34','145.50','1','未完成','2016-08-28 15:23:12','用户取消订单',' <a href="javascript:void()" onclick="picture_del(this,'+10001+')" class="btn btn-danger operation_btn">删除</a> <a href="javascript:void()" onclick="picture_img(this,'+234+')" class="btn bg-deep-blue operation_btn">查看</a>'],
-    ['<label><input type="checkbox" class="ace"><span class="lbl"></span></label>','3','201608150560345','2016-08-25 12:23:34','145.50','1','未完成','2016-08-28 15:23:12','用户取消订单',' <a href="javascript:void()" onclick="picture_del(this,'+10001+')" class="btn btn-danger operation_btn">删除</a> <a href="javascript:void()" onclick="picture_img(this,'+234+')" class="btn bg-deep-blue operation_btn">查看</a>'],
-	  ['<label><input type="checkbox" class="ace"><span class="lbl"></span></label>','4','201608150560345','2016-08-25 12:23:34','145.50','1','已完成','2016-08-28 15:23:12','',' <a href="javascript:void()" onclick="picture_del(this,'+10001+')" class="btn btn-danger operation_btn">删除</a> <a href="javascript:void()" onclick="picture_img(this,'+234+')" class="btn bg-deep-blue operation_btn">查看</a>'],
-	    ['<label><input type="checkbox" class="ace"><span class="lbl"></span></label>','5','201608150560345','2016-08-25 12:23:34','145.50','1','未完成','2016-08-28 15:23:12','买家未付款',' <a href="javascript:void()" onclick="picture_del(this,'+10001+')" class="btn btn-danger operation_btn">删除</a> <a href="javascript:void()" onclick="picture_img(this,'+234+')" class="btn bg-deep-blue operation_btn">查看</a>'],
-		  ['<label><input type="checkbox" class="ace"><span class="lbl"></span></label>','6','201608150560345','2016-08-25 12:23:34','145.50','1','已完成','2016-08-28 15:23:12','',' <a href="javascript:void()" onclick="picture_del(this,'+10001+')" class="btn btn-danger operation_btn">删除</a> <a href="javascript:void()" onclick="picture_img(this,'+234+')" class="btn bg-deep-blue operation_btn">查看</a>'],
-		    ['<label><input type="checkbox" class="ace"><span class="lbl"></span></label>','7','201608150560345','2016-08-25 12:23:34','145.50','1','已完成','2016-08-28 15:23:12','',' <a href="javascript:void()" onclick="picture_del(this,'+10001+')" class="btn btn-danger operation_btn">删除</a> <a href="javascript:void()" onclick="picture_img(this,'+234+')" class="btn bg-deep-blue operation_btn">查看</a>'],
-			 ['<label><input type="checkbox" class="ace"><span class="lbl"></span></label>','8','201608250560345','2016-08-25 12:23:34','345.50','3','已完成','2016-08-28 15:23:12','',' <a href="javascript:void()" onclick="picture_del(this,'+10001+')" class="btn btn-danger operation_btn">删除</a> <a href="javascript:void()" onclick="picture_img(this,'+234+')" class="btn bg-deep-blue operation_btn">查看</a>'],
-			  ['<label><input type="checkbox" class="ace"><span class="lbl"></span></label>','9','201607250560345','2016-08-25 12:23:34','235.50','2','已完成','2016-08-28 15:23:12','',' <a href="javascript:void()" onclick="picture_del(this,'+10001+')" class="btn btn-danger operation_btn">删除</a> <a href="javascript:void()" onclick="picture_img(this,'+234+')" class="btn bg-deep-blue operation_btn">查看</a>'],
-			   ['<label><input type="checkbox" class="ace"><span class="lbl"></span></label>','10','201608250560345','2016-08-25 12:23:34','345.50','3','已完成','2016-08-28 15:23:12','',' <a href="javascript:void()" onclick="picture_del(this,'+10001+')" class="btn btn-danger operation_btn">删除</a> <a href="javascript:void()" onclick="picture_img(this,'+234+')" class="btn bg-deep-blue operation_btn">查看</a>'],
-			    ['<label><input type="checkbox" class="ace"><span class="lbl"></span></label>','11','201608250560345','2016-08-25 12:23:34','345.50','3','已完成','2016-08-28 15:23:12','',' <a href="javascript:void()" onclick="picture_del(this,'+10001+')" class="btn btn-danger operation_btn">删除</a> <a href="javascript:void()" onclick="picture_img(this,'+234+')" class="btn bg-deep-blue operation_btn">查看</a>'],
-];
- jQuery(function($) {
-				var oTable1 = $('#sample-table').dataTable( {
-				"data": dataSet,
-				"width":"100%",	
-				"bLengthChange":false,
-				"iDisplayLength": 20,
-				//"columns" : _tableCols,
-				"aaSorting": [[ 1, "desc" ]],//默认第几个排序
-		        "bStateSave": true,//状态保存
-				"searching": false,
-		        "aoColumnDefs": [{"orderable":false,"aTargets":[0,2,3,5,6,7,8]
-				}]
-		
-			   });
-			
-				$('table th input:checkbox').on('click' , function(){
-					var that = this;
-					$(this).closest('table').find('tr > td:first-child input:checkbox')
-					.each(function(){
-						this.checked = that.checked;
-						$(this).closest('tr').toggleClass('selected');
-					});
-						
-				});
-			});
+
+<script>		
 	/*产品-删除*/
 function picture_del(obj,id){
 	layer.confirm('确认要删除吗？',{icon:0,},function(index){
@@ -153,9 +141,5 @@ $("body").niceScroll({
 	cursorborder:"0",  
 	cursorborderradius:"5px"  
 });
-	/*时间*/
-	laydate({
-    elem: '#start',
-    event: 'focus' 
-});
+	
 </script>
