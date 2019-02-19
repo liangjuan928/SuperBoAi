@@ -7,6 +7,7 @@ import java.util.List;
 import cn.boai.dao.daopack.CartDao.impl.CartDaoImpl;
 import cn.boai.dao.daopack.OrderDao.impl.OrderDaoImpl;
 import cn.boai.dao.daopack.UserDao.impl.UserDaoImpl;
+import cn.boai.dao.hydao.impl.HyDaoImpl;
 import cn.boai.db.DBHelper;
 import cn.boai.pojo.Order1;
 import cn.boai.pojo.User;
@@ -16,6 +17,7 @@ public class HyServiceImpl implements HyService{
 	private UserDaoImpl ud=new UserDaoImpl();
 	private CartDaoImpl cd=new CartDaoImpl();
 	private OrderDaoImpl od=new OrderDaoImpl();
+	private HyDaoImpl hd=new HyDaoImpl();
 
 	@Override
 	public User queryUserById(String uid) {
@@ -93,6 +95,26 @@ public class HyServiceImpl implements HyService{
 			DBHelper.closeConnection(conn);
 		}
 		return list;
+	}
+
+	@Override
+	public boolean updateProNum(String pid) {
+		Connection conn = DBHelper.getConnection();
+		boolean flag = false;
+		try {
+			conn.setAutoCommit(false);
+			flag = hd.upProNum(pid, conn);
+			conn.commit();
+		} catch (Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}finally{
+			DBHelper.closeConnection(conn);
+		}
+		return flag;
 	}
 	
 	

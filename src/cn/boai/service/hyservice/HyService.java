@@ -10,4 +10,5 @@ public interface HyService {
 	public boolean removeCart(String uid,String pid);
 	public boolean addOrder(Order1 order);
 	public List<Order1> queryAllOrder();
+	public boolean updateProNum(String pid);
 }

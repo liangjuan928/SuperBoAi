@@ -1,7 +1,31 @@
 package cn.boai.dao.hydao.impl;
 
-public class HyDaoImpl {
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
+
+import cn.boai.dao.daopack.ProductDao.impl.ProductDaoImpl;
+import cn.boai.dao.hydao.HyDao;
+import cn.boai.pojo.Product;
+
+public class HyDaoImpl implements HyDao{
+	ProductDaoImpl pd=new ProductDaoImpl();
+
+	public boolean upProNum(String pid, Connection conn) throws Exception {
+		boolean flag = false;
+		String sql = "update product set pro_sales=? where pro_id=?";
+		PreparedStatement ps = null;
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, pid);
+		Product p=pd.selectProductById(pid, conn);
+		ps.setString(2, p.getPro_sales()+1);
+		int n = ps.executeUpdate();
+		if (n > 0) {
+			flag = true;
+		}
+		ps.close();
+		return flag;
+	}
 	
 
 }

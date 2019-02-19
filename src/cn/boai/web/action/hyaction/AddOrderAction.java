@@ -42,6 +42,8 @@ public class AddOrderAction implements Action{
 		
 		boolean flag=hs.addOrder(order);
 		System.out.println(flag+"=============================addOrder"); 
+		boolean flag2=hs.updateProNum(pids);
+		System.out.println(flag2+"=============================upProNum");
 		
 		request.getSession().setAttribute("newOrder", flag);
 		
