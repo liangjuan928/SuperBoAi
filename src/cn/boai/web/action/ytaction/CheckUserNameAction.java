@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import cn.boai.dao.ytdao.YtDao;
 import cn.boai.dao.ytdao.impl.YtDaoImpl;
 import cn.boai.db.DBHelper;
+import cn.boai.web.core.Action;
 import cn.boai.web.core.ActionResult;
 import cn.boai.web.core.DispatcherAction;
 import cn.boai.web.core.ResultContent;
@@ -18,15 +19,15 @@ import cn.boai.web.core.ResultType;
 import cn.boai.web.form.ActionForm;
 import cn.boai.web.form.ytform.CheckUserNameForm;
 
-public class CheckUserNameAction extends DispatcherAction{
+public class CheckUserNameAction implements Action{
 	YtDao yd=new YtDaoImpl();
-	public ActionResult checkuser(HttpServletRequest request, HttpServletResponse reponse, ActionForm form)
-			throws ServletException, IOException{
+	
+	@Override
+	public ActionResult execute(HttpServletRequest request, HttpServletResponse reponse, ActionForm form)
+			throws ServletException, IOException {
+		System.out.println("checkusername");
 		boolean result=false;
 		ActionResult ar=null;
-		CheckUserNameForm cnf=(CheckUserNameForm) form;
-		String s1=cnf.getUname();
-		System.out.println(s1);
 		String s = request.getParameter("uname");
 		System.out.println(s);
 		s = URLDecoder.decode(s,"UTF-8");

@@ -17,6 +17,7 @@ public class DispatcherAction implements Action{
 			throws ServletException, IOException {
 		System.out.println("DispatcherAction");
 		String methodName = form.getParam();
+		System.out.println(methodName);
 		Class c = this.getClass();
 		ActionResult af = null;
 		if (methodName == null) {

@@ -12,53 +12,37 @@ import cn.boai.dao.ytdao.YtDao;
 import cn.boai.dao.ytdao.impl.YtDaoImpl;
 import cn.boai.db.DBHelper;
 import cn.boai.pojo.User;
+import cn.boai.service.ytservice.YtService;
+import cn.boai.service.ytservice.impl.YtServiceImpl;
 import cn.boai.util.ChangePass;
 import cn.boai.web.core.Action;
 import cn.boai.web.core.ActionResult;
+import cn.boai.web.core.DispatcherAction;
 import cn.boai.web.core.ResultContent;
 import cn.boai.web.core.ResultType;
 import cn.boai.web.form.ActionForm;
+import cn.boai.web.form.ytform.CheckUserForm;
 
-public class CheckUserAction implements Action{
-	YtDao yd=new YtDaoImpl();
-	public ActionResult execute(HttpServletRequest request, HttpServletResponse reponse, ActionForm form)
+public class CheckUserAction extends DispatcherAction{
+	YtService ys=new YtServiceImpl();
+	public ActionResult login(HttpServletRequest request, HttpServletResponse reponse, ActionForm form)
 			throws ServletException, IOException{
-		System.out.print("aaa");
-		Connection conn=DBHelper.getConnection();
-		User user=new User();
+		CheckUserForm cf=(CheckUserForm)form;
 		boolean result=false;
 		ActionResult ar=null;
 		
-		String uname = request.getParameter("uname");
-		String upass = request.getParameter("upass");
-		System.out.println(uname);
-//		s = URLDecoder.decode(s,"UTF-8");
-//		System.out.println("解码："+s);
-		try{
-			result=yd.checkUserByUserName(uname,conn);
-			if(result){
-				user=yd.selectUserByUserName(uname, conn);
-				String pass_database=user.getUser_password();
-				String pass_form=ChangePass.Change(upass);
-				if(pass_database.equals(pass_form)){
-					System.out.println("密码正确");
-					ResultContent rc = new ResultContent("login_success",result); // 转发到在属性文件中对应的页面
-					ar = new ActionResult(rc, ResultType.Forward);					
-				}else{
-					
-					ResultContent rc = new ResultContent("to_login",result);
-					ar = new ActionResult(rc, ResultType.Forward);	
-				}				
-			}
-			else{
-				  ResultContent rc = new ResultContent("to_login",result);
-				  ar = new ActionResult(rc, ResultType.Forward);
-			}
-			System.out.println("result:"+result);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
+		result=ys.checkUser(cf);
+		
+		if(result){
+			ResultContent rc = new ResultContent("to_index");			
+			ar = new ActionResult(rc, ResultType.Forward); // 转发到to_login在属性文件中对应的jsp页面
+
+		}else{
+			ResultContent rc = new ResultContent("to_login");			
+			ar = new ActionResult(rc, ResultType.Forward); // 转发到to_login在属性文件中对应的jsp页面
+			
+		}
+		
 		return ar;
 	}
 }

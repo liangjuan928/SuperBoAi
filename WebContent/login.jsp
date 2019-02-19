@@ -31,7 +31,6 @@
       }
     --%>
 
-    <%=request.getAttribute("fasong") %>
 
   <div class="site-nav-bg">
     <div class="site-nav w1200">
@@ -41,7 +40,7 @@
       </p>
       <div class="sn-quick-menu">
         <div class="login"><a href="login.jsp">登录</a></div>
-        <div class="sp-cart"><a href="shopcart.jsp">购物车</a><span>2</span></div>
+        <div class="sp-cart"><a href="shopcart.jsp">购物车</a></div>
       </div>
     </div>
   </div>
@@ -88,7 +87,7 @@
       <div class="login-cont w1200">
         <div class="form-box">
           <form class="layui-form" method="post" action="login_check.do" id="myform">
-          <input type="hidden" name="param" value="logintest"/>
+          <input type="hidden" name="param" value="login"/>
             <legend>账号登录|<a href="register.jsp">点我注册</a></legend>
             <div class="layui-form-item">
               <div class="layui-inline">
@@ -169,47 +168,13 @@
     function click(){
     	if(document.getElementById("uname").value==""||document.getElementById("upass").value==""){
     		alert("请先填写用户名和密码！");   		
+    	}else{
+    		var form=document.getElementById("myform");
+    		form.submit();
     	}
-    	if(window.XMLHttpRequest){
-			 xmlHttp = new XMLHttpRequest();
-		  }else{//IE内核
-			 try{
-				 xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
-			 }catch(e){
-				 xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-	   }
-		    	 }
-		 
-			//获得要发送的数据
-			var vname = document.getElementById("uname").value;
-			var vpass = document.getElementById("upass").value;
-			//将数据进行编码(安全考虑应该编2次)
-			vname = encodeURI(encodeURI(vname));
-			vpass = encodeURI(encodeURI(vpass));
-			//定位要发送的目的
-			xmlHttp.open("GET","login_addForm.do?uname="+vname,true);
-			xmlHttp.open("GET","login_addForm.do?upass="+vpass,true);
-			//指定一个回调函数			
-			xmlHttp.onreadystatechange=callback;
 			
-			//发送
-			xmlHttp.send();			
-			
-		  }
-    
-		  function callback(){
-			if(xmlHttp.readyState==4){
-				if(xmlHttp.status==200){
-					//一切正常并能开始获得返回的结果
-					var result= xmlHttp.responseText;
-					if(result=="true"){
-						window.location="commodity.jsp";
-					}
-					else window.location="login.jsp";
-				}
-			}
-    	
-    }
+	}
+
   </script>
 
 </body>

@@ -66,14 +66,14 @@
     <div class="login-bg">
       <div class="login-cont w1200">
         <div class="form-box">
-          <form class="layui-form" action="" id="myform" enctype="multipart/form-data" method="get">  
+          <form class="layui-form" action="register_add.do" id="myform"  method="post">  
             <legend>账号注册|<a href="login.jsp">点我登录</a></legend>
              <div class="layui-form-item">
               <div class="layui-inline">
                <div class="layui-input-inline">
                     <input type="text" name="uname" id="uname" lay-verify="required"  
                     placeholder="请输入用户名" autocomplete="off" class="layui-input" onblur="myfunction()">                    
-                    <input type="hidden" name="param" value="checkuser"/>
+                    
                </div>
                <div><label id="span1"></label></div>
              </div>       
@@ -94,10 +94,9 @@
                     <div >
                       <div class="layui-input-inline">
                         <label for="">头像</label>
-                        <input type="file" name="uphoto" id="uphoto" onchange="change(this)">
-                        <!-- input type="hidden" name="param" value="Addphoto" id="Addphoto"/>
-                        <input type="hidden" name="param" value="photo_type" id="photo_type"/>
-                        <input type="hidden" name="param" value="photo_pro" id="pro_photo"/> -->
+                        <input type="file" id="uphoto" onchange="change(this)">
+                        <input type="hidden" name="photo" id="photo"/>
+                        <input type="hidden" name="photo_type" id="photo_type"/> -->
                         <div><label id="span3"></label></div>
                         <br/>
   		                 <div id="show"></div>   		
@@ -189,10 +188,8 @@
 	   }
 	   else{
 	         document.getElementById("span1").innerHTML="";  
-	         alert(document.getElementById("uname").value);
 		 if(window.XMLHttpRequest){
 			 xmlHttp = new XMLHttpRequest();
-			 alert("11111111111111111111");
 		  }else{//IE内核
 			 try{
 				 xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
@@ -203,10 +200,8 @@
 		 
 			//获得要发送的数据
 			var v = document.getElementById("uname").value;
-			alert(v);
 			//将数据进行编码(安全考虑应该编2次)
 			v = encodeURI(encodeURI(v));
-			alert(v);
 			//定位要发送的目的
 			xmlHttp.open("GET","register_check.do?uname="+v,true);
 			//指定一个回调函数			
@@ -218,8 +213,6 @@
 		  }
 	   }	        
 		  function callback(){
-			  alert(xmlHttp.readyState);
-			  alert(xmlHttp.status);
 			if(xmlHttp.readyState==4){
 				if(xmlHttp.status==200){
 					//一切正常并能开始获得返回的结果
@@ -237,59 +230,17 @@
 			}
 		  }
 		  
-   /*  function change(obj){
-		 if(window.XMLHttpRequest){
-    	 var fr=new FileReader();
-    	var f = obj.files[0];
-		fr.readAsDataURL(f);
-		fr.onload=function(e){
-			document.getElementById("pro_photo").value=e.target.result;
-			var val=obj.value;
-			//获得后缀
-			val=val.substring(val.lastIndexOf(".")+1);
-			document.getElementById("photo_type").value=val;
-			alert(val);
-		}		
-			 xmlHttp = new XMLHttpRequest();
-		  }else{//IE内核
-			 try{
-				 xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
-			 }catch(e){
-				 xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-	   }
-		    	 }
-		 
-			//获得要发送的数据
-			var v = document.getElementById("uphoto").value;
-			//将数据进行编码(安全考虑应该编2次)
-			v = encodeURI(encodeURI(v));
-			v =
-			//定位要发送的目的
-			xmlHttp.open("GET","photo_upload.do?uname="+v,true);
-			//指定一个回调函数			
-			xmlHttp.onreadystatechange=callback;
-			
-			//发送
-			xmlHttp.send();			
-			
-		  }
-    function callback(){
-		if(xmlHttp.readyState==4){
-			if(xmlHttp.status==200){
-				//一切正常并能开始获得返回的结果
-				var result= xmlHttp.responseText;				
-				var div = document.getElementById("span3");
-				if(result.trim()=="true"){
-					div.innerHTML="头像上传成功";
-					div.style.color="red";
-				}else{
-					div.innerHTML="头像上传失败";
-					div.style.color="green";
-				}
+		  function change(obj){
+				var fr = new FileReader();
+				var f = obj.files[0];
+				fr.readAsDataURL(f);
+				fr.onload=function(e){
+					document.getElementById("photo").value=e.target.result;
+					var val=obj.value;
+					val=val.substring(val.lastIndexOf(".")+1);
+					document.getElementById("photo_type").value=val;
+				};
 			}
-		}
-    }
-	 */
  
 	</script>
 
