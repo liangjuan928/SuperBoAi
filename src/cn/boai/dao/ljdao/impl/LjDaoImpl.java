@@ -170,7 +170,7 @@ public class LjDaoImpl implements LjDao {
 			product.setType_id(rs.getInt("type_id"));
 			product.setPro_def(rs.getString("pro_def"));
 			list.add(product);
-		}
+		}  
 		rs.close();
 		ps.close();
 		return list;

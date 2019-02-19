@@ -90,13 +90,13 @@ public class LjServiceImpl implements LjService{
 	public Article getArticleById(int id) {
 		Connection conn=DBHelper.getConnection();
 		Article article=new Article();
-	try {
-		article=ad.selectArticleById(id, conn);
-	} catch (Exception e) {
-		e.printStackTrace();
-	}finally{
-		DBHelper.closeConnection(conn);
-	}
+		try {
+			article=ad.selectArticleById(id, conn);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			DBHelper.closeConnection(conn);
+		}
 		return article;
 	}
 
@@ -125,8 +125,11 @@ public class LjServiceImpl implements LjService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+}   
+
 	
-	}
+	
       
 	
 
